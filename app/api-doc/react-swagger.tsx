@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import 'swagger-ui-react/swagger-ui.css';
 
