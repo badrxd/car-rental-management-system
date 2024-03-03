@@ -1,10 +1,10 @@
-import { getApiDocs } from "@/lib/swagger.js";
-import ReactSwagger from "@/components/react-swagger";
+import ReactSwagger from "./react-swagger";
+import { getApiDocs } from "@/lib/swagger";
 
-export default async function IndexPage() {
+export default async function ApiDocPage() {
   const spec = await getApiDocs();
   return (
-    <section className="container">
+    <section className="w-full">
       <ReactSwagger spec={spec} />
     </section>
   );
