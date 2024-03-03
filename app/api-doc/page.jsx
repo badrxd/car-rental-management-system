@@ -5,7 +5,11 @@ export default async function ApiDocPage() {
   const spec = await getApiDocs();
   return (
     <section className="w-full">
-      <ReactSwagger spec={spec} />
+      {spec !== null && spec !== undefined ? (
+        <ReactSwagger spec={spec} />
+      ) : (
+        "null"
+      )}
     </section>
   );
 }
