@@ -2,7 +2,7 @@
 import React from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 
-function page() {
+function Page() {
     const { data: session } = useSession()
 
     if (session) {
