@@ -5,9 +5,9 @@ function About() {
   return (
     <div className="max-w-6xl mx-auto flex-col sm:flex-row justify-between p-8 items-center">
       <div>
-        <h1 className="">
+        <h1 className=" text-2xl font-bold">
           Welcome to
-          <span className="text-[#f1c40f] size-8">
+          <span className="text-[#f1c40f]">
             Car<span className="text-black font-bold">Rent</span>
           </span>
         </h1>
@@ -20,7 +20,7 @@ function About() {
           rental industry.
         </p>
         <br />
-        <p className="text-green">Our Mission</p>
+        <p className="text-2xl font-bold">Our Mission</p>
         <br />
         <h3>Empowering Your Travel Experience</h3>
         <br />
@@ -32,7 +32,7 @@ function About() {
           make that a reality.
         </p>
         <br />
-        <h1>Meet Our Team</h1>
+        <h1 className=" text-2xl font-bold">Meet Our Team</h1>
         <br />
         <h3>Driving Passion and Expertise</h3>
         <br />
@@ -42,15 +42,15 @@ function About() {
           discover the driving force behind our success.
         </p>
         <br />
-        <h1>Get in Touch</h1>
+        <h1 className="text-2xl">Get in Touch</h1>
         <br />
         <h3>Ready for the Journey? Contact Us Today!</h3>
         <br />
         <p>
-          Your journey begins with a simple click or call.{" "}
+          Your journey begins with a simple click or call.
           <a href="/contact" className="text-blue">
-            Contact us
-          </a>{" "}
+            Contact us 
+          </a>
           today to book your next adventure or to inquire about our services.
           We're here to make your travel dreams a reality.
         </p>
