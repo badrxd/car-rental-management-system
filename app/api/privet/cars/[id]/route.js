@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma, { Prisma } from "@/prisma/prisma";
+import prisma from "@/prisma/prisma";
 import { formDataToObject } from "@/lib/backEnd/formDataToObject";
 import {
   uploadPhoto,
