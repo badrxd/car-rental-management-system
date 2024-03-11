@@ -14,47 +14,142 @@ datasource db {
 }
 
 model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String  @db.ObjectId
-  name              String  @db.String
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String   @db.ObjectId
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.String
-  access_token      String? @db.String
+  refresh_token     String?  @db.String
+  access_token      String?  @db.String
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.String
+  id_token          String?  @db.String
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  v                 Int      @default(0) @map("__v")
 
   @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  sessionToken String   @unique
-  userId       String   @db.ObjectId
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
   email         String?   @unique
-  emailVerified DateTime?
+  passwod       String?
+  emailVerified Boolean?
+  secret_key    Int?
   image         String?
+  role          Role      @default(USER)
   accounts      Account[]
-  sessions      Session[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  v             Int       @default(0) @map("__v")
 }
 
-model VerificationToken {
-  identifier String   @id @default(auto()) @map("_id") @db.ObjectId
-  token      String   @unique
-  expires    DateTime
+model Car {
+  id                 String        @id @default(auto()) @map("_id") @db.ObjectId
+  brand              String
+  model              String
+  image              String
+  color              String
+  fuels              Fuels
+  gear_box           Gear_box
+  matricule          String
+  mileage            Int?
+  passenger_capacity Int
+  vedange            Json?
+  rent_price         Float
+  Reservation        Reservation[]
+  // availability       Boolean       @default(true)
+  status             Car_status    @default(AVAILABLE)
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  v                  Int           @default(0) @map("__v")
 
-  @@unique([identifier, token])
+  @@unique([matricule])
+}
+
+model Customer {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  full_name       String
+  phone           String
+  driver_id       String        @unique
+  driver_id_image String?
+  balcklist       Boolean       @default(false)
+  note            String        @default("")
+  reservation     Reservation[]
+  num_of_res      Int           @default(0)
+  spending        Float         @default(0)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  v               Int           @default(0) @map("__v")
+}
+
+model Reservation {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  Car         Car        @relation(fields: [car_id], references: [id])
+  car_id      String     @db.ObjectId
+  Customer    Customer   @relation(fields: [customer_id], references: [id])
+  customer_id String     @db.ObjectId
+  Revenue_id  String     @db.ObjectId
+  Revenue     Revenue    @relation(fields: [Revenue_id], references: [id])
+  date_range  String     @db.ObjectId
+  status      Rev_status @default(CONFIRMED) // you need to add enum to it
+  amount      Float
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  v           Int        @default(0) @map("__v")
+}
+
+model Date_Range {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  car_id         String   @db.ObjectId
+  reservation_id String   @db.ObjectId
+  status         Boolean  @default(true)
+  start_date     DateTime
+  end_date       DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  v              Int      @default(0) @map("__v")
+}
+
+model Revenue {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  month        String
+  year         String
+  total_amount Float         @default(0)
+  reservation  Reservation[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  v            Int           @default(0) @map("__v")
+}
+
+enum Car_status {
+  AVAILABLE
+  RENTED
+  UNAVAILABLE
+}
+
+enum Rev_status {
+  CONFIRMED
+  CANCELLED
+}
+
+enum Gear_box {
+  MANUAL
+  AUTOMATIC
+}
+
+enum Fuels {
+  DIESEL
+  GASOLINE
+}
+
+enum Role {
+  DEV
+  ADMIN
+  USER
 }

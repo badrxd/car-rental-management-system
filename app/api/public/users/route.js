@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 /**
  * @swagger
- * /api/users:
+ * /api/public/users:
  *   get:
  *     description: Returns all users
  *     responses:

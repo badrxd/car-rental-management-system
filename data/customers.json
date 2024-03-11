@@ -1,0 +1,58 @@
+[
+    {
+        "url": [
+            "http://localhost:3000/api/privet/customers/",
+            "http://localhost:3000/api/privet/customers/{id}"
+        ]
+    },
+    {
+        "full_name": "Badr XD",
+        "phone": "0662369851",
+        "driver_id": "ia12345"
+    },
+    {
+        "full_name": "Jane Doe",
+        "phone": "0987654321",
+        "driver_id": "ia54321"
+    },
+    {
+        "full_name": "Alice Johnson",
+        "phone": "0765432198",
+        "driver_id": "ia98765"
+    },
+    {
+        "full_name": "Bob Smith",
+        "phone": "0654321987",
+        "driver_id": "ia45678"
+    },
+    {
+        "full_name": "Eva Anderson",
+        "phone": "0543219876",
+        "driver_id": "ia87654"
+    },
+    {
+        "full_name": "Michael Brown",
+        "phone": "0432198765",
+        "driver_id": "ia23456"
+    },
+    {
+        "full_name": "Sophia Wilson",
+        "phone": "0321987654",
+        "driver_id": "ia56789"
+    },
+    {
+        "full_name": "David Garcia",
+        "phone": "0219876543",
+        "driver_id": "ia65432"
+    },
+    {
+        "full_name": "Emma Davis",
+        "phone": "0108765432",
+        "driver_id": "ia78901"
+    },
+    {
+        "full_name": "William Miller",
+        "phone": "0987654321",
+        "driver_id": "ia12345"
+    }
+]
