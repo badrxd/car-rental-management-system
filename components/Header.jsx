@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <div className="flex gap-4 justify-between p-3 max-w-6xl mx-auto items-center">
       <Link className="uppercase" href="/">
-        <p className="text-[#f1c40f] size-8">
+        <p className="text-[#f1c40f] text-2xl">
           Car<span className="text-black font-bold">Rent</span>
         </p>
       </Link>
@@ -17,7 +17,7 @@ export default function Header() {
         <Menuitems title="Contact" link="/contact" />
       </nav>
       <div>
-        <button className="bg-[#000000] text-white rounded p-2 hidden sm:block ">
+        <button className="bg-[#000000] text-white rounded-full w-20 hover:bg-[#454545] p-2 hidden sm:block ">
           <a href="/login">Login</a>
         </button>
       </div>

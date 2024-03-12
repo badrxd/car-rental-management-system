@@ -1,7 +1,10 @@
 import React from "react";
+import Cars from "@/components/Cars.jsx"
 
-function Cars() {
-  return <div>Cars</div>;
+function Allcars() {
+  return <div className="max-w-6xl mx-auto">
+    <Cars />
+  </div>;
 }
 
-export default Cars;
+export default Allcars;
