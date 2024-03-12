@@ -1,5 +1,6 @@
 import React from "react";
 import { MdOutlineEmail } from "react-icons/md";
+import Map from "@/components/Map";
 
 
 function Contact() {
@@ -8,7 +9,7 @@ function Contact() {
     <div className="flex justify-between">
     <div>
       <h1 className="text-2xl font-bold">Get in Touch</h1>
-      <p>We're here to help. Contcat us for any inquiries or support</p>
+      <p>We&apos;re here to help. Contcat us for any inquiries or support</p>
     </div>
     <div>
       <div><span className="flex gap-1 items-center"><MdOutlineEmail /> <h1>Email</h1></span>support@carrent.com</div>
@@ -17,7 +18,7 @@ function Contact() {
     </div>
     </div>
     <div>
-      map
+    {/* <Map address="1600 Amphitheatre Parkway, Mountain View, CA" /> */}
     </div>
   </div>
 )}

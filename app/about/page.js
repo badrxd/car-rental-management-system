@@ -56,7 +56,7 @@ function About() {
         </p>
       </div>
       <div>
-        <Image  className="mx-auto" src={'/about-car.png'} width={700} height={500}/>
+        <Image  className="mx-auto" alt="about-car" src={'/about-car.png'} width={700} height={500}/>
       </div>
     </div>
   );

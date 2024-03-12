@@ -8,7 +8,7 @@ import { CiHeart } from "react-icons/ci";
 
 
 
-export default function () {
+export default  function Carcard () {
   return (
     <div className='p-5 bg-[#fafafa] rounded-lg flex flex-col gap-8'>
         <div className='flex justify-between'>
@@ -21,7 +21,7 @@ export default function () {
             </div>
         </div>
         <div>
-            <Image src="/car.png" width={500} height={500} />
+            <Image src="/car.png" alt={'card-image'} width={500} height={500} />
         </div>
         <div className='flex justify-between'>
             <span className='flex justify-between items-center gap-1'><GiGasPump />Diesel</span>

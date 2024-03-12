@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useRef, useMemo } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 function Map({ address }) {
