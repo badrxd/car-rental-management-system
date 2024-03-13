@@ -22,7 +22,7 @@ function About() {
         <br />
         <p className="text-2xl font-bold">Our Mission</p>
         <br />
-        <h3>Empowering Your Travel Experience</h3>
+        <h3 className="font-bold">Empowering Your Travel Experience</h3>
         <br />
         <p>
           Our mission is simple: to empower your travel experience by offering a
@@ -34,7 +34,7 @@ function About() {
         <br />
         <h1 className=" text-2xl font-bold">Meet Our Team</h1>
         <br />
-        <h3>Driving Passion and Expertise</h3>
+        <h3 className="font-bold">Driving Passion and Expertise</h3>
         <br />
         <p>
           Our team is comprised of passionate individuals dedicated to making
@@ -42,9 +42,9 @@ function About() {
           discover the driving force behind our success.
         </p>
         <br />
-        <h1 className="text-2xl">Get in Touch</h1>
+        <h1 className="text-2xl font-bold">Get in Touch</h1>
         <br />
-        <h3>Ready for the Journey? Contact Us Today!</h3>
+        <h3 className="font-bold">Ready for the Journey? Contact Us Today!</h3>
         <br />
         <p>
           Your journey begins with a simple click or call.
@@ -55,7 +55,9 @@ function About() {
           We&apos;re here to make your travel dreams a reality.
         </p>
       </div>
-      <div></div>
+      <div>
+        <Image  className="mx-auto" alt="about-car" src={'/about-car.png'} width={700} height={500}/>
+      </div>
     </div>
   );
 }
