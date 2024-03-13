@@ -1,7 +1,6 @@
 import React from "react";
 import { MdOutlineEmail } from "react-icons/md";
-import Map from "@/components/Map";
-
+import Image from 'next/image'
 
 function Contact() {
   return(
@@ -9,6 +8,7 @@ function Contact() {
     <div className="flex justify-between">
     <div>
       <h1 className="text-2xl font-bold">Get in Touch</h1>
+      <br />
       <p>We&apos;re here to help. Contcat us for any inquiries or support</p>
     </div>
     <div>
@@ -17,8 +17,8 @@ function Contact() {
       <div><span className="flex gap-1 items-center"><MdOutlineEmail /> <h1>Office</h1></span>Rue 1337 NL ALX AFRICA</div>
     </div>
     </div>
-    <div>
-    {/* <Map address="1600 Amphitheatre Parkway, Mountain View, CA" /> */}
+    <div className="mt-5">
+      <Image src={"/map.png"} alt="map image" width={1823} height={660} />
     </div>
   </div>
 )}

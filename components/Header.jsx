@@ -12,6 +12,7 @@ export default function Header() {
         </p>
       </Link>
       <nav className="sm:flex gap-4 hidden">
+      <Menuitems title="Home" link="/" />
         <Menuitems title="Rent Now" link="/cars" />
         <Menuitems title="About Us" link="/about" />
         <Menuitems title="Contact" link="/contact" />
