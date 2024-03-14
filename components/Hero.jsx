@@ -14,7 +14,7 @@ export default function Hero() {
       </div>
       </div>
       <div className='mb-5'>
-        <button className='bg-[#000000] hover:bg-[#454545] text-white rounded p-2'>
+        <button className='bg-[#000000] hover:bg-[#454545] w-40 text-white rounded-full p-2'>
           Show More
         </button>
       </div>

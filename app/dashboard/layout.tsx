@@ -1,3 +1,3 @@
 export default function DashboardLayout({ children }) {
-  return <section>eeeeee{children}</section>;
+  return <section>{children}</section>;
 }
