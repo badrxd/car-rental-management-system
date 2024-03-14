@@ -11,14 +11,9 @@ import Validator from "@/lib/backEnd/inputValidation";
 export async function PATCH(request, { params }) {
   try {
     const { id } = await params;
-    if (!id) {
-      return NextResponse.json(
-        {
-          message: "Reservation id is required",
-        },
-        { status: 400 }
-      );
-    }
+    const { status } = await request.json();
+    const validation = Validator.patchReservation({ id, status });
+
     const reservation = await prisma.reservation.findUnique({
       where: { id: id },
       include: {
@@ -31,8 +26,6 @@ export async function PATCH(request, { params }) {
         Revenue: { select: { total_amount: true } },
       },
     });
-
-    const { status } = await request.json();
 
     if (!reservation) {
       return NextResponse.json(
@@ -106,9 +99,6 @@ export async function PATCH(request, { params }) {
   } catch (error) {
     console.log(error.message);
     error.message = "Internal Server Erorr";
-
-    if (error?.code === "P2002")
-      error.message = "Driver id belong to another customer";
 
     if (error?.name === "PrismaClientValidationError") {
       error.message = "The attribute are invalid.";

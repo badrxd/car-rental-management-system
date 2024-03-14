@@ -63,6 +63,7 @@ model Car {
   vedange            Json?
   rent_price         Float
   Reservation        Reservation[]
+  num_of_res         Int           @default(0)
   // availability       Boolean       @default(true)
   status             Car_status    @default(AVAILABLE)
   createdAt          DateTime      @default(now())
