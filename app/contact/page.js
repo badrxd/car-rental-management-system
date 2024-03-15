@@ -32,9 +32,7 @@ function Contact() {
           </div>
         </div>
       </div>
-      <div>
-        {/* <Map address="1600 Amphitheatre Parkway, Mountain View, CA" /> */}
-      </div>
+      <div></div>
     </div>
   );
 }
