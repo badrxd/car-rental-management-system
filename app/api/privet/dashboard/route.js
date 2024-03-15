@@ -60,7 +60,7 @@ export async function GET(request) {
       take: 6,
     });
 
-    return NextResponse.json({ error: false, dash }, { status: 200 });
+    return NextResponse.json({ error: false, ...dash }, { status: 200 });
   } catch (error) {
     console.log(error.message);
     return NextResponse.json(
