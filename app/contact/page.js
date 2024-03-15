@@ -1,5 +1,6 @@
 import React from "react";
 import { MdOutlineEmail } from "react-icons/md";
+import Map from "@/components/Map";
 
 function Contact() {
   return (
@@ -32,7 +33,9 @@ function Contact() {
           </div>
         </div>
       </div>
-      <div></div>
+      <div>
+        {/* <Map address="1600 Amphitheatre Parkway, Mountain View, CA" /> */}
+      </div>
     </div>
   );
 }

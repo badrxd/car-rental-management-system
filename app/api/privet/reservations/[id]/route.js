@@ -17,6 +17,7 @@ export async function PATCH(request, { params }) {
     const reservation = await prisma.reservation.findUnique({
       where: { id: id },
       include: {
+        Car: { num_of_res: true },
         Customer: {
           select: {
             num_of_res: true,
@@ -53,7 +54,7 @@ export async function PATCH(request, { params }) {
     // car
     await prisma.car.update({
       where: { id: reservation.car_id },
-      data: { status: "AVAILABLE" },
+      data: { status: "AVAILABLE", num_of_res: reservation.Car.num_of_res - 1 },
     });
 
     // customer
@@ -70,8 +71,10 @@ export async function PATCH(request, { params }) {
       where: { id: reservation.Revenue_id },
       data: {
         total_amount: reservation.Revenue.total_amount - reservation.amount,
+        total_rented_cars: reservation.Revenue.total_rented_cars - 1,
       },
     });
+
     // date range
     await prisma.date_Range.update({
       where: { id: reservation.date_range_id },

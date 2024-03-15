@@ -189,7 +189,7 @@ export async function POST(request) {
     // car
     await prisma.car.update({
       where: { id: car_id },
-      data: { status: "RENTED" },
+      data: { status: "RENTED", num_of_res: car.num_of_res + 1 },
     });
 
     // customer
@@ -204,7 +204,10 @@ export async function POST(request) {
     //  revenue
     await prisma.revenue.update({
       where: { id: revenue.id },
-      data: { total_amount: revenue.total_amount + Number(amount) },
+      data: {
+        total_amount: revenue.total_amount + Number(amount),
+        total_rented_cars: revenue.total_rented_cars + 1,
+      },
     });
 
     // reservations number

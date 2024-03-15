@@ -121,14 +121,15 @@ model Date_Range {
 }
 
 model Revenue {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
-  month        Int
-  year         Int
-  total_amount Float         @default(0)
-  reservation  Reservation[]
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  v            Int           @default(0) @map("__v")
+  id                String        @id @default(auto()) @map("_id") @db.ObjectId
+  month             Int
+  year              Int
+  total_amount      Float         @default(0)
+  total_rented_cars Int           @default(0)
+  reservation       Reservation[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  v                 Int           @default(0) @map("__v")
 }
 
 model ReservationNumber {
