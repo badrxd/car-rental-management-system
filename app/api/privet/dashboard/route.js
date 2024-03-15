@@ -17,8 +17,8 @@ export async function GET(request) {
       11: null,
       12: null,
     },
-    total_amount: 0,
-    total_rented_cars: 0,
+    year_earnings: 0,
+    year_reservations: 0,
     total_cars: 0,
     total_customers: 0,
     top_customers: [],
@@ -34,8 +34,8 @@ export async function GET(request) {
     result.forEach((e) => {
       const i = e.month;
       dash.mounth[i] = e;
-      dash.total_amount += e.total_amount;
-      dash.total_rented_cars += e.total_rented_cars;
+      dash.year_earnings += e.total_amount;
+      dash.year_reservations += e.total_rented_cars;
     });
 
     //car
@@ -60,7 +60,7 @@ export async function GET(request) {
       take: 6,
     });
 
-    return NextResponse.json(dash, { status: 200 });
+    return NextResponse.json({ error: false, dash }, { status: 200 });
   } catch (error) {
     console.log(error.message);
     return NextResponse.json(
