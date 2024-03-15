@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import prisma from "@/prisma/prisma";
 import Validator from "@/lib/backEnd/inputValidation";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request) {
   const dash = {
     mounth: {
