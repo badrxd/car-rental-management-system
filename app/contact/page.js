@@ -1,6 +1,5 @@
 import React from "react";
 import { MdOutlineEmail } from "react-icons/md";
-import Map from "@/components/Map";
 
 function Contact() {
   return (
