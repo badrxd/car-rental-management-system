@@ -15,7 +15,7 @@ const Dashboard = async () => {
         <Widget
           icon={<MdBarChart className="h-7 w-7" />}
           title={"Year Earnings"}
-          subtitle={data.year_earnings}
+          subtitle={data?.year_earnings}
         />
         <Widget
           icon={<IoPersonSharp className="h-6 w-6" />}
