@@ -2,6 +2,11 @@
 import React from "react";
 import Widget from "@/components/dash_components/widget/Widget";
 import TotalSpent from "@/components/dash_components/TotalSpent";
+import WeeklyRevenue from "@/components/dash_components/WeeklyRevenue";
+import CustomersData from "@/components/dash_components/variables/CustomersData";
+import CarsData from "@/components/dash_components/variables/TopCarsData";
+import TopCars from "@/components/dash_components/TopCars";
+import TopCustomers from "@/components/dash_components/TopCustomers";
 import { MdBarChart } from "react-icons/md";
 import { IoPersonSharp, IoCar } from "react-icons/io5";
 
@@ -13,11 +18,10 @@ const Dashboard = async () => {
     }
   );
   const data = await reponse.json();
-  console.log(data);
   if (data.error) {
     return (
-      <div>
-        <h1>Page Not Found</h1>
+      <div className="mt-10">
+        <h1 className="text-3xl">Data Not Found</h1>
       </div>
     );
   }
@@ -28,7 +32,7 @@ const Dashboard = async () => {
         <Widget
           icon={<MdBarChart className="h-7 w-7" />}
           title={"Year Earnings"}
-          subtitle={data.year_earnings}
+          subtitle={`${data.year_earnings} MAD`}
         />
         <Widget
           icon={<IoPersonSharp className="h-6 w-6" />}
@@ -49,8 +53,16 @@ const Dashboard = async () => {
       {/* Charts */}
 
       <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-        <TotalSpent />
-        {/* <WeeklyRevenue /> */}
+        <TotalSpent dataMonth={data?.month} />
+        <WeeklyRevenue />
+      </div>
+      {/* Complex Table , Task & Calendar */}
+      <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
+        <TopCustomers
+          tabletitle={"Top Customers"}
+          tableData={CustomersData(data?.top_customers)}
+        />
+        <TopCars tabletitle={"Top Cars"} tableData={CarsData(data?.top_cars)} />
       </div>
     </div>
   );

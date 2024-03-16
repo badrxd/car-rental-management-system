@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET(request) {
   const dash = {
-    mounth: {
+    month: {
       1: null,
       2: null,
       3: null,
@@ -35,7 +35,7 @@ export async function GET(request) {
     });
     result.forEach((e) => {
       const i = e.month;
-      dash.mounth[i] = e;
+      dash.month[i] = e;
       dash.year_earnings += e.total_amount;
       dash.year_reservations += e.total_rented_cars;
     });
