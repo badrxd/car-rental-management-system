@@ -11,13 +11,16 @@ import {
 import LineChart from "@/components/dash_components/charts/LineChart";
 
 const TotalSpent = ({ dataMonth }) => {
+  let data = [];
   for (let i = 1; i < 13; i++) {
     if (dataMonth[i] === null) {
-      lineChartDataTotalSpent[0].data.push(0);
+      data.push(0);
       continue;
     }
-    lineChartDataTotalSpent[0].data.push(dataMonth[i].total_amount);
+    data.push(dataMonth[i].total_amount);
   }
+  lineChartDataTotalSpent[0].data = data;
+  data = [];
   return (
     <Card extra="!p-[20px] text-center">
       <div className="flex justify-between">
