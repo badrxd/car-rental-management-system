@@ -8,7 +8,7 @@ export async function middleware(req) {
     req,
     secret: "rentalsystem2023",
     // secret: process.env.JWT_SECRET,
-    secureCookie: process.env.NODE_ENV === "production",
+    // secureCookie: process.env.NODE_ENV === "production",
   });
   if (pathname.startsWith("/api/privet")) {
     if (!session)

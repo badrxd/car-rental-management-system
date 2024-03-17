@@ -14,7 +14,10 @@ import { cookies } from "next/headers";
 
 const Default = async () => {
   const cookieStore = cookies();
-  const token = cookieStore.get("next-auth.session-token")?.value;
+  const token =
+    process.env.NODE_ENV === "production"
+      ? cookieStore.get("__Secure-next-auth.session-token")?.value
+      : cookieStore.get("next-auth.session-token")?.value;
   const reponse = await fetch(
     `${process.env.NEXTAUTH_URL}/api/privet/dashboard`,
     {
