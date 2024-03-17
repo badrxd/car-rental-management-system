@@ -7,7 +7,6 @@ type RowObj = {
 };
 
 export const CarsData = (data) => {
-  console.log(data);
   const customers = [];
   data.forEach((e) => {
     const obj = {
