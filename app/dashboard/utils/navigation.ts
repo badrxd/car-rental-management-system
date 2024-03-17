@@ -2,7 +2,14 @@ import { IRoute } from "../types/navigation";
 import Router from "next/router";
 
 // NextJS Requirement
-export const isWindowAvailable = () => typeof window !== "undefined";
+// export const isWindowAvailable = () => typeof window === undefined;
+// export const isWindowAvailable = () => true;
+export const isWindowAvailable = () => {
+  if (typeof window === undefined) {
+    return false;
+  }
+  return true;
+};
 
 export const findCurrentRoute = (
   routes: IRoute[],

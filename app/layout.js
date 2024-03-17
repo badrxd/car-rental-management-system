@@ -1,5 +1,5 @@
-'use client'
-import { usePathname} from 'next/navigation';
+"use client";
+import { usePathname } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SessionWrapper from "@/components/SessionWrapper";
@@ -10,22 +10,21 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
+  console.log(pathname.slice(0, 10));
 
   return (
     <SessionWrapper>
       <html lang="en" className="bg-[#ebebeb]">
         <body className={inter.className}>
-          {pathname !== '/dashboard' ? 
+          {pathname.slice(0, 10) !== "/dashboard" ? (
             <>
               <Header />
               {children}
               <Footer />
             </>
-            : 
-            <>
-              {children}
-            </>
-          }
+          ) : (
+            <>{children}</>
+          )}
         </body>
       </html>
     </SessionWrapper>

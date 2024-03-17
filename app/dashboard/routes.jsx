@@ -5,10 +5,9 @@ import React from "react";
 // Icon Imports
 import {
   MdHome,
-  MdOutlineShoppingCart,
-  MdBarChart,
   MdPerson,
-  MdLock,
+  MdDirectionsCarFilled,
+  MdBookmarks,
 } from "react-icons/md";
 
 const routes = [
@@ -19,24 +18,23 @@ const routes = [
     icon: <MdHome className="h-6 w-6" />,
   },
   {
-    name: "NFT Marketplace",
+    name: "Cars",
     layout: "/dashboard",
-    path: "nft-marketplace",
-    icon: <MdOutlineShoppingCart className="h-6 w-6" />,
-
+    path: "cars",
+    icon: <MdDirectionsCarFilled className="h-6 w-6" />,
     secondary: true,
   },
   {
-    name: "Data Tables",
+    name: "Customers",
     layout: "/dashboard",
-    icon: <MdBarChart className="h-6 w-6" />,
-    path: "data-tables",
+    path: "customers",
+    icon: <MdPerson className="h-6 w-6" />,
   },
   {
-    name: "Profile",
+    name: "Reservations",
     layout: "/dashboard",
-    path: "profile",
-    icon: <MdPerson className="h-6 w-6" />,
+    path: "reservations",
+    icon: <MdBookmarks className="h-6 w-6" />,
   },
 ];
 export default routes;
