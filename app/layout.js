@@ -10,8 +10,6 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-  console.log(pathname.slice(0, 10));
-
   return (
     <SessionWrapper>
       <html lang="en" className="bg-[#ebebeb]">

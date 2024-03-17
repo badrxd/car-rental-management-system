@@ -10,11 +10,16 @@ import TopCustomers from "@/components/dash_components/TopCustomers";
 import { MdBarChart } from "react-icons/md";
 import { IoPersonSharp, IoCar } from "react-icons/io5";
 
+import { cookies } from "next/headers";
+
 const Default = async () => {
+  const cookieStore = cookies();
+  const token = cookieStore.get("next-auth.session-token")?.value;
   const reponse = await fetch(
     `${process.env.NEXTAUTH_URL}/api/privet/dashboard`,
     {
       cache: "no-store",
+      headers: { Authorization: `Bearer ${token}` },
     }
   );
   const data = await reponse.json();

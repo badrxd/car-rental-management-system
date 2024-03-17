@@ -114,7 +114,7 @@ export async function GET(request, { params }) {
 
     return NextResponse.json(
       {
-        car: getCar,
+        ...getCar,
       },
       { status: 200 }
     );
