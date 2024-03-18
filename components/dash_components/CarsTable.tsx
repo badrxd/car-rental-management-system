@@ -117,9 +117,7 @@ function CarsTable(props: { tableData: any; tabletitle: any }) {
         </p>
       ),
       cell: (info) => (
-        <Link
-          href={`${process.env.NEXTAUTH_URL}/dashboard/cars/${info.getValue()}`}
-        >
+        <Link href={`/dashboard/cars/${info.getValue()}`}>
           <FaRegEdit className="text-1xl" />
         </Link>
       ),
