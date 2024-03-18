@@ -15,7 +15,7 @@ import { get_token } from "@/lib/frontEnd/getToken";
 
 const Default = async () => {
   // this function takes cookies and return an authorization object
-  const token = await get_token(cookies);
+  const token = get_token(cookies);
 
   const reponse = await fetch(
     `${process.env.NEXTAUTH_URL}/api/privet/dashboard`,
