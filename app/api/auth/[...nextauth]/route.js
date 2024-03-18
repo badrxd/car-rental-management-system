@@ -24,33 +24,33 @@ const handler = NextAuth({
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-  //   callbacks: {
-  // async signIn({ user, account, isNewUser }) {
-  //     if (account?.provider === 'google' && isNewUser) {
-  //         await prisma.user.update({
-  //             where: { id: user.id },
-  //             data: {
-  //                 emailVerified: true
-  //             }
-  //         });
-  //     }
-  //     return true;
-  // },
-  //     jwt({ token, user, account }) {
-  //       if (user) token.role = user.role;
-  //       if (account && account.access_token) {
-  //         token.accessToken = account.access_token;
-  //       }
-  //       return token;
-  //     },
-  //     session({ session, token }) {
-  //       session.user.role = token.role;
-  //       if (token && token.accessToken) {
-  //         session.accessToken = token.accessToken;
-  //       }
-  //       return session;
-  //     },
-  //   },
+  callbacks: {
+    async signIn({ user, account, isNewUser }) {
+      if (account?.provider === "google" && isNewUser) {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: {
+            emailVerified: true,
+          },
+        });
+      }
+      return true;
+    },
+    jwt({ token, user, account }) {
+      if (user) token.role = user.role;
+      // if (account && account.access_token) {
+      //   token.accessToken = account.access_token;
+      // }
+      return token;
+    },
+    session({ session, token }) {
+      session.user.role = token.role;
+      // if (token && token.accessToken) {
+      //   session.accessToken = token.accessToken;
+      // }
+      return session;
+    },
+  },
 });
 
 export { handler as GET, handler as POST };

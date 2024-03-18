@@ -27,6 +27,6 @@
     "**/*.ts",
     "**/*.tsx",
     "tailwind.config.js"
-  ],
+, "components/LoginForm.jsx"  ],
   "exclude": ["node_modules"]
 }

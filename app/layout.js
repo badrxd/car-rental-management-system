@@ -10,11 +10,14 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
+  console.log(pathname.slice(0, 6));
+
   return (
     <SessionWrapper>
       <html lang="en" className="bg-[#ebebeb]">
         <body className={inter.className}>
-          {pathname.slice(0, 10) !== "/dashboard" ? (
+          {pathname.slice(0, 10) !== "/dashboard" &&
+          pathname.slice(0, 10) !== "/login" ? (
             <>
               <Header />
               {children}
