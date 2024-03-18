@@ -2,6 +2,7 @@ import React from "react";
 import { FiSearch } from "react-icons/fi";
 import CarsTable from "@/components/dash_components/CarsTable";
 import CarsTableData from "@/components/dash_components/variables/CarsTableData";
+import {get_token} from "@/lib/frontEnd/getToken"
 
 import { cookies } from "next/headers";
 
