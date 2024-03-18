@@ -117,10 +117,7 @@ function CarsTable(props: { tableData: any; tabletitle: any }) {
         </p>
       ),
       cell: (info) => (
-        <Link
-          href={`http://localhost:3000/dashboard/cars/${info.getValue()}`}
-          className="text-sm pl-3 font-bold text-navy-700 dark:text-white"
-        >
+        <Link href={`http://localhost:3000/dashboard/cars/${info.getValue()}`}>
           <FaRegEdit className="text-1xl" />
         </Link>
       ),
