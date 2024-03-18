@@ -77,6 +77,13 @@ const Navbar = (props: {
             <RiMoonFill className="h-4 w-4 text-gray-600 dark:text-white" />
           )}
         </div>
+        <span
+          className="flex cursor-pointer text-xl text-gray-600 dark:text-white xl:hidden"
+          onClick={onOpenSidenav}
+        >
+          <FiAlignJustify className="h-5 w-5" />
+        </span>
+
         {/* Profile & Dropdown */}
         <Dropdown
           button={

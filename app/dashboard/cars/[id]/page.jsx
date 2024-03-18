@@ -26,7 +26,7 @@ export default async function page({ params }) {
   return (
     <>
       <div className="flex justify-between bg-[#fff] rounded-full p-5">
-        <div className="flex items-center bg-lightPrimary rounded-full w-96">
+        <div className="flex items-center bg-lightPrimary   dark:bg-navy-900 rounded-full w-96">
           <p className="pl-3 pr-2 text-xl">
             <FiSearch className="h-4 w-4 text-gray-400 dark:text-white" />
           </p>
@@ -47,25 +47,25 @@ export default async function page({ params }) {
           <div className=" w-full p-5">
             <h1 className="uppercase p-3">Brand</h1>
             <input
-              className="p-2 rounded-full bg-[#F4F7FE] w-full"
+              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
               type="text"
               placeholder="Brand"
             />
             <h1 className="uppercase p-3">Model</h1>
             <input
-              className="p-2 rounded-full bg-[#F4F7FE] w-full"
+              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
               type="text"
               placeholder="Model"
             />
             <h1 className="uppercase p-3">Color</h1>
             <input
-              className="p-2 rounded-full bg-[#F4F7FE] w-full"
+              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
               type="text"
               placeholder="Color"
             />
             <h1 className="uppercase p-3">Fuels</h1>
             <input
-              className="p-2 rounded-full bg-[#F4F7FE] w-full"
+              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
               type="text"
               placeholder="Fuels"
             />
@@ -73,25 +73,25 @@ export default async function page({ params }) {
           <div className="w-full p-5">
             <h1 className="uppercase p-3">Matricule</h1>
             <input
-              className="p-2 rounded-full bg-[#F4F7FE] w-full"
+              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
               type="text"
               placeholder="matricule"
             />
             <h1 className="uppercase p-3">Gear Box</h1>
             <input
-              className="p-2 rounded-full bg-[#F4F7FE] w-full"
+              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
               type="text"
               placeholder="Gear Box"
             />
             <h1 className="uppercase p-3">Passenger Capacity</h1>
             <input
-              className="p-2 rounded-full bg-[#F4F7FE] w-full"
+              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
               type="text"
               placeholder="Passenger Capacity"
             />
             <h1 className="uppercase p-3">Rent Price</h1>
             <input
-              className="p-2 rounded-full bg-[#F4F7FE] w-full"
+              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
               type="text"
               placeholder="Rent Price"
             />
@@ -100,7 +100,7 @@ export default async function page({ params }) {
         <div className="flex justify-between p-3">
           <div className="flex w-fit">
             <div className="font-[sans-serif] max-w-md mx-auto flex items-center">
-              <label className="text-sm text-black mb-2 block w-40 ">
+              <label className="font-bold text-black mb-2 block w-40 ">
                 Upload Image
               </label>
               <input

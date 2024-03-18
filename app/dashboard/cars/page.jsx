@@ -26,7 +26,7 @@ const Cars = async () => {
   return (
     <div className="pt-5">
       <div className="flex justify-between bg-[#fff] rounded-full p-5">
-        <div className="flex items-center bg-lightPrimary rounded-full w-96">
+        <div className="flex items-center bg-lightPrimary  dark:bg-navy-900 rounded-full w-96">
           <p className="pl-3 pr-2 text-xl">
             <FiSearch className="h-4 w-4 text-gray-400 dark:text-white" />
           </p>
