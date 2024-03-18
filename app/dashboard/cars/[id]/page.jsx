@@ -1,11 +1,18 @@
 import React from "react";
 import { FiSearch } from "react-icons/fi";
+import { cookies } from "next/headers";
 
 export default async function page({ params }) {
+  const cookieStore = cookies();
+  const token =
+    process.env.NODE_ENV === "production"
+      ? cookieStore.get("__Secure-next-auth.session-token")?.value
+      : cookieStore.get("next-auth.session-token")?.value;
   const reponse = await fetch(
     `${process.env.NEXTAUTH_URL}/api/privet/cars/${params.id}`,
     {
       cache: "no-store",
+      headers: { Authorization: `Bearer ${token}` },
     }
   );
   const data = await reponse.json();

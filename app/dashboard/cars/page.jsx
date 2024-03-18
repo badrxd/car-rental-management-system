@@ -3,9 +3,17 @@ import { FiSearch } from "react-icons/fi";
 import CarsTable from "@/components/dash_components/CarsTable";
 import CarsTableData from "@/components/dash_components/variables/CarsTableData";
 
+import { cookies } from "next/headers";
+
 const Cars = async () => {
+  const cookieStore = cookies();
+  const token =
+    process.env.NODE_ENV === "production"
+      ? cookieStore.get("__Secure-next-auth.session-token")?.value
+      : cookieStore.get("next-auth.session-token")?.value;
   const reponse = await fetch(`${process.env.NEXTAUTH_URL}/api/privet/cars`, {
     cache: "no-store",
+    headers: { Authorization: `Bearer ${token}` },
   });
   const data = await reponse.json();
   if (data.error) {
