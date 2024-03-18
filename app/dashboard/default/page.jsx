@@ -11,20 +11,20 @@ import { MdBarChart } from "react-icons/md";
 import { IoPersonSharp, IoCar } from "react-icons/io5";
 
 import { cookies } from "next/headers";
+import { get_token } from "@/lib/frontEnd/getToken";
 
 const Default = async () => {
-  const cookieStore = cookies();
-  const token =
-    process.env.NODE_ENV === "production"
-      ? cookieStore.get("__Secure-next-auth.session-token")?.value
-      : cookieStore.get("next-auth.session-token")?.value;
+  // this function takes cookies and return an authorization object
+  const token = await get_token(cookies);
+
   const reponse = await fetch(
     `${process.env.NEXTAUTH_URL}/api/privet/dashboard`,
     {
       cache: "no-store",
-      headers: { Authorization: `Bearer ${token}` },
+      headers: token,
     }
   );
+
   const data = await reponse.json();
   if (data.error) {
     return (
