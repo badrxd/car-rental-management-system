@@ -139,9 +139,7 @@ export async function PATCH(request, { params }) {
         { status: 404 }
       );
     }
-
     const changes = await request.formData();
-    console.log(changes);
     await formDataToObject(update_info, changes);
     const validation = Validator.patchCars(update_info);
     if (validation.error) {
@@ -175,7 +173,12 @@ export async function PATCH(request, { params }) {
       }
       update_info.image = image;
     }
-
+    console.log(update_info);
+    if (update_info?.rent_price) {
+      update_info.rent_price = parseInt(update_info.rent_price);
+    }
+    console.log(update_info);
+    return NextResponse.json({});
     await prisma.car.update({
       where: { id: id },
       data: update_info,
@@ -190,6 +193,7 @@ export async function PATCH(request, { params }) {
       { status: 200 }
     );
   } catch (error) {
+    console.log(error.message);
     error.message = "Internal Server Erorr";
 
     if (error?.code === "P2002")

@@ -59,9 +59,9 @@ model Car {
   gear_box           Gear_box
   matricule          String
   mileage            Int?
-  passenger_capacity Int
+  passenger_capacity String
   vedange            Json?
-  rent_price         Float
+  rent_price         Int
   Reservation        Reservation[]
   num_of_res         Int           @default(0)
   // availability       Boolean       @default(true)
