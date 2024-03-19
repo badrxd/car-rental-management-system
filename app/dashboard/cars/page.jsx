@@ -10,11 +10,15 @@ const Cars = async () => {
     process.env.NODE_ENV === "production"
       ? cookieStore.get("__Secure-next-auth.session-token")?.value
       : cookieStore.get("next-auth.session-token")?.value;
-  const reponse = await fetch(`${process.env.NEXTAUTH_URL}/api/privet/cars`, {
-    cache: "no-store",
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const reponse = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/privet/cars?page=1&limit=10`,
+    {
+      cache: "no-store",
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
   const data = await reponse.json();
+  console.log(data);
   if (data.error) {
     return (
       <div className="mt-10">
@@ -43,7 +47,7 @@ const Cars = async () => {
           </div>
         </div>
         <div className="pt-5">
-          <CarsTable tableData={CarsTableData(data)} />
+          <CarsTable tableData={CarsTableData(data.allCars)} />
         </div>
       </div>
     </Suspense>
