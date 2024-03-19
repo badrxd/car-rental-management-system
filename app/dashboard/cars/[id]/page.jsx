@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { z } from "zod";
 
 export default function Page({ params }) {
   const UpdateData = {
@@ -17,6 +18,9 @@ export default function Page({ params }) {
     matricule: null,
     image: null,
   };
+  // zod validation for input data
+  const carSchema = z.object({});
+
   const [updateData, setUpdateData] = useState(UpdateData);
   const { data: session, status } = useSession();
   let [change, setChange] = useState(false);
