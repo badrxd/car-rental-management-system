@@ -19,7 +19,19 @@ export default function Page({ params }) {
     image: null,
   };
   // zod validation for input data
-  const carSchema = z.object({});
+  const carSchema = z.object({
+    brand: z.string().toLowerCase().min(2).max(20),
+    model: z.string().toLowerCase().min(2).max(20),
+    image: "",
+    color: z.string().toLowerCase().min(2).max(20),
+    fuels: "",
+    gear_box: "",
+    matricule: z
+      .string()
+      .regex(/^\d+-[A-Za-z]-\d+$/, "Invalid matricule format"),
+    passenger_capacity: "",
+    rent_price: "",
+  });
 
   const [updateData, setUpdateData] = useState(UpdateData);
   const { data: session, status } = useSession();
@@ -115,7 +127,7 @@ export default function Page({ params }) {
             placeholder="Color"
             value={isDisabled ? `${data?.color}` : updateData.color}
           />
-          <h1 className="uppercase p-3 text-gray-700 font-bold">Fuels</h1>
+          {/* <h1 className="uppercase p-3 text-gray-700 font-bold">Fuels</h1>
           <input
             onChange={(e) => {
               update(e);
@@ -126,7 +138,12 @@ export default function Page({ params }) {
             disabled={isDisabled}
             placeholder="Fuels"
             value={isDisabled ? `${data?.fuels}` : updateData.fuels}
-          />
+          /> */}
+          <form action="#">
+            <label htmlFor="fuels">Fuels</label>
+            <option value="GASOLINE">GASOLINE</option>
+            <option value="DIESEL">DIESEL</option>
+          </form>
           <h1 className="uppercase p-3 text-gray-700 font-bold">Matricule</h1>
           <input
             onChange={(e) => {
@@ -159,7 +176,7 @@ export default function Page({ params }) {
               update(e);
             }}
             className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
-            type="number"
+            type="text"
             name="Passenger Capacity"
             disabled={isDisabled}
             placeholder="Passenger Capacity"
