@@ -139,7 +139,9 @@ export async function PATCH(request, { params }) {
         { status: 404 }
       );
     }
+
     const changes = await request.formData();
+    console.log(changes);
     await formDataToObject(update_info, changes);
     const validation = Validator.patchCars(update_info);
     if (validation.error) {
@@ -148,7 +150,6 @@ export async function PATCH(request, { params }) {
         { status: 400 }
       );
     }
-    return NextResponse.json({}, { status: 200 });
     const getCar = await prisma.car.findUnique({
       where: {
         id: id,
@@ -189,7 +190,6 @@ export async function PATCH(request, { params }) {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error.message);
     error.message = "Internal Server Erorr";
 
     if (error?.code === "P2002")
