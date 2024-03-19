@@ -36,7 +36,7 @@ export default function Page({ params }) {
   useEffect(() => {
     const first = async () => {
       const reponse = await fetch(
-        `http://localhost:3000/api/privet/cars/${params.id}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/privet/cars/${params.id}`,
         {
           cache: "no-store",
           headers: { Authorization: `Bearer ${session.accessToken}` },
@@ -54,7 +54,12 @@ export default function Page({ params }) {
     <>
       <div className="mt-5 bg-[#fff] flex justify-between p-5 rounded-2xl">
         <div className="w-full flex flex-col justify-start items-center gap-10">
-          <Image src={`/images/${data?.image}`} width={500} height={500} alt="Car Image"/>
+          <Image
+            src={`/images/${data?.image}`}
+            width={500}
+            height={500}
+            alt="Car Image"
+          />
           {change === true ? (
             <div className="font-[sans-serif] max-w-md mx-auto flex items-center">
               <label className="font-bold text-black mb-2 block w-40 ">
