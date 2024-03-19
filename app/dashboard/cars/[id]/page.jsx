@@ -127,8 +127,8 @@ export default function Page({ params }) {
             placeholder="Color"
             value={isDisabled ? `${data?.color}` : updateData.color}
           />
-          {/* <h1 className="uppercase p-3 text-gray-700 font-bold">Fuels</h1>
-          <input
+          <h1 className="uppercase p-3 text-gray-700 font-bold">Fuels</h1>
+          {/* <input
             onChange={(e) => {
               update(e);
             }}
@@ -139,11 +139,20 @@ export default function Page({ params }) {
             placeholder="Fuels"
             value={isDisabled ? `${data?.fuels}` : updateData.fuels}
           /> */}
-          <form action="#">
-            <label htmlFor="fuels">Fuels</label>
-            <option value="GASOLINE">GASOLINE</option>
+          <select
+            disabled={isDisabled}
+            name="fuels"
+            id="fuels"
+            className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
+          >
+            <option
+              value={isDisabled ? `${data?.fuels}` : "GASOLINE"}
+              className="font-bold"
+            >
+              {isDisabled ? `${data?.fuels}` : "GASOLINE"}
+            </option>
             <option value="DIESEL">DIESEL</option>
-          </form>
+          </select>
           <h1 className="uppercase p-3 text-gray-700 font-bold">Matricule</h1>
           <input
             onChange={(e) => {
@@ -157,7 +166,7 @@ export default function Page({ params }) {
             value={isDisabled ? `${data?.matricule}` : updateData.matricule}
           />
           <h1 className="uppercase p-3 text-gray-700 font-bold">Gear Box</h1>
-          <input
+          {/* <input
             onChange={(e) => {
               update(e);
             }}
@@ -167,7 +176,21 @@ export default function Page({ params }) {
             disabled={isDisabled}
             placeholder="Gear Box"
             value={isDisabled ? `${data?.gear_box}` : updateData.gear_box}
-          />
+          /> */}
+          <select
+            disabled={isDisabled}
+            name="fuels"
+            id="fuels"
+            className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
+          >
+            <option
+              value={isDisabled ? `${data?.gear_box}` : "MANUAL"}
+              className="font-bold"
+            >
+              {isDisabled ? `${data?.gear_box}` : "MANUAL"}
+            </option>
+            <option value="AUTO">AUTO</option>
+          </select>
           <h1 className="uppercase p-3 text-gray-700 font-bold">
             Passenger Capacity
           </h1>
