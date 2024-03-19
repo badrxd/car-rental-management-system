@@ -3,6 +3,7 @@ import React from "react";
 import CardMenu from "@/components/dash_components/card";
 import Card from "@/components/dash_components/card";
 import { FaRegEdit } from "react-icons/fa";
+import { IoEyeOutline } from "react-icons/io5";
 
 import {
   createColumnHelper,
@@ -112,13 +113,11 @@ function CarsTable(props: { tableData: any; tabletitle: any }) {
     columnHelper.accessor("id", {
       id: "id",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white ">
-          EDITE
-        </p>
+        <p className="text-sm font-bold text-gray-600 dark:text-white ">SHOW</p>
       ),
       cell: (info) => (
         <Link href={`/dashboard/cars/${info.getValue()}`}>
-          <FaRegEdit className="text-1xl" />
+          <IoEyeOutline className="text-1xl" />
         </Link>
       ),
     }),

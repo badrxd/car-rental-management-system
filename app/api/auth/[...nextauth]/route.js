@@ -38,16 +38,16 @@ const handler = NextAuth({
     },
     jwt({ token, user, account }) {
       if (user) token.role = user.role;
-      // if (account && account.access_token) {
-      //   token.accessToken = account.access_token;
-      // }
+      if (account && account.access_token) {
+        token.accessToken = account.access_token;
+      }
       return token;
     },
     session({ session, token }) {
       session.user.role = token.role;
-      // if (token && token.accessToken) {
-      //   session.accessToken = token.accessToken;
-      // }
+      if (token && token.accessToken) {
+        session.accessToken = token.accessToken;
+      }
       return session;
     },
   },

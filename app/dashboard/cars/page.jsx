@@ -1,11 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { FiSearch } from "react-icons/fi";
 import CarsTable from "@/components/dash_components/CarsTable";
 import CarsTableData from "@/components/dash_components/variables/CarsTableData";
-import {get_token} from "@/lib/frontEnd/getToken"
-
 import { cookies } from "next/headers";
-
+import Loading from "../Loading";
 const Cars = async () => {
   const cookieStore = cookies();
   const token =
@@ -25,28 +23,30 @@ const Cars = async () => {
     );
   }
   return (
-    <div className="pt-5">
-      <div className="flex justify-between bg-[#fff] rounded-full p-5">
-        <div className="flex items-center bg-lightPrimary  dark:bg-navy-900 rounded-full w-96">
-          <p className="pl-3 pr-2 text-xl">
-            <FiSearch className="h-4 w-4 text-gray-400 dark:text-white" />
-          </p>
-          <input
-            type="text"
-            placeholder="Search..."
-            className="block h-full w-full rounded-full bg-lightPrimary text-sm font-medium text-navy-700 outline-none placeholder:!text-gray-400 dark:bg-navy-900 dark:text-white dark:placeholder:!text-white sm:w-full"
-          />
-        </div>
-        <div>
-          <button className="bg-[#000] text-[#fff] p-2 rounded-full w-40">
-            Add New Car
-          </button>
-        </div>
-      </div>
+    <Suspense fallback={<Loading />}>
       <div className="pt-5">
-        <CarsTable tableData={CarsTableData(data)} />
+        <div className="flex justify-between bg-[#fff] rounded-full p-5">
+          <div className="flex items-center bg-lightPrimary  dark:bg-navy-900 rounded-full w-96">
+            <p className="pl-3 pr-2 text-xl">
+              <FiSearch className="h-4 w-4 text-gray-400 dark:text-white" />
+            </p>
+            <input
+              type="text"
+              placeholder="Search..."
+              className="block h-full w-full rounded-full bg-lightPrimary text-sm font-medium text-navy-700 outline-none placeholder:!text-gray-400 dark:bg-navy-900 dark:text-white dark:placeholder:!text-white sm:w-full"
+            />
+          </div>
+          <div>
+            <button className="bg-[#000] text-[#fff] p-2 rounded-full w-40">
+              Add New Car
+            </button>
+          </div>
+        </div>
+        <div className="pt-5">
+          <CarsTable tableData={CarsTableData(data)} />
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 };
 

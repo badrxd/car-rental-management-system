@@ -7,6 +7,8 @@ import navbarimage from "/public/img/layout/Navbar.png";
 import { BsArrowBarUp } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
+import { IoPersonCircleOutline } from "react-icons/io5";
+
 // import { RiMoonFill, RiSunFill } from 'react-icons/ri';
 // import Configurator from './Configurator';
 import {
@@ -15,10 +17,13 @@ import {
 } from "react-icons/io";
 import avatar from "/public/img/avatars/avatar4.png";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 const Navbar = (props: {
   onOpenSidenav: () => void;
   brandText: string;
+  name: string;
   secondary?: boolean | string;
   [x: string]: any;
 }) => {
@@ -27,6 +32,20 @@ const Navbar = (props: {
   useEffect(() => {
     setDarkmode(document.body.classList.contains("dark"));
   }, []);
+  const { data: session, status } = useSession();
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
+  let name = "";
+  let email = "";
+  let image = "";
+
+  if (status === "authenticated") {
+    console.log(session);
+    name = session.user.name;
+    email = session.user.email;
+    image = session.user.image;
+  }
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
       <div className="ml-[6px]">
@@ -87,45 +106,47 @@ const Navbar = (props: {
         {/* Profile & Dropdown */}
         <Dropdown
           button={
-            <Image
-              width="2"
-              height="20"
-              className="h-10 w-10 rounded-full"
-              src={avatar}
-              alt="Elon Musk"
-            />
+            image ? (
+              <Image
+                src={image}
+                width={100}
+                height={100}
+                alt="avatar"
+                className="h-10 w-10 rounded-full"
+              />
+            ) : (
+              // <img
+              //   src={image}
+              //   alt={name}
+              //   width={2}
+              //   height={20}
+              //   className="h-10 w-10 rounded-full"
+              // />
+              <IoPersonCircleOutline className="h-5 text-3xl w-5 text-gray-600" />
+            )
           }
-          classNames={"py-2 top-8 -left-[180px] w-max"}
+          classNames={"p-5 top-8 -left-[200px] w-max"}
         >
-          <div className="flex h-48 w-56 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
-            <div className="ml-4 mt-3">
+          <div className="flex h-48 w-70 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
+            <div className="m-4 mt-3">
               <div className="flex items-center gap-2">
                 <p className="text-sm font-bold text-navy-700 dark:text-white">
-                  👋 Hey, Adela
+                  👋 Hey, {name}
                 </p>{" "}
               </div>
             </div>
             <div className="mt-3 h-px w-full bg-gray-200 dark:bg-white/20 " />
 
-            <div className="ml-4 mt-3 flex flex-col">
-              <a
-                href=" "
-                className="text-sm text-gray-800 dark:text-white hover:dark:text-white"
-              >
-                Profile Settings
-              </a>
-              <a
-                href=" "
-                className="mt-3 text-sm text-gray-800 dark:text-white hover:dark:text-white"
-              >
-                Newsletter Settings
-              </a>
-              <a
-                href=" "
-                className="mt-3 text-sm font-medium text-red-500 hover:text-red-500"
+            <div className="ml-4 mt-3 flex flex-col justify-center items-center gap-5">
+              <p className="text-sm text-gray-800 dark:text-white hover:dark:text-white">
+                Email: {email}
+              </p>
+              <button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="bg-[#000] text-[#fff] p-2 rounded-full w-40"
               >
                 Log Out
-              </a>
+              </button>
             </div>
           </div>
         </Dropdown>
