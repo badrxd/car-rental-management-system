@@ -6,6 +6,7 @@ import {
   deletePhoto,
   handeErrors,
 } from "@/lib/backEnd/handelPhoto";
+import Validator from "@/lib/backEnd/inputValidation";
 
 /**
  * @swagger
@@ -140,7 +141,14 @@ export async function PATCH(request, { params }) {
     }
     const changes = await request.formData();
     await formDataToObject(update_info, changes);
-
+    const validation = Validator.patchCars(update_info);
+    if (validation.error) {
+      return NextResponse.json(
+        { message: validation.message },
+        { status: 400 }
+      );
+    }
+    return NextResponse.json({}, { status: 200 });
     const getCar = await prisma.car.findUnique({
       where: {
         id: id,
@@ -181,6 +189,7 @@ export async function PATCH(request, { params }) {
       { status: 200 }
     );
   } catch (error) {
+    console.log(error.message);
     error.message = "Internal Server Erorr";
 
     if (error?.code === "P2002")
