@@ -173,12 +173,9 @@ export async function PATCH(request, { params }) {
       }
       update_info.image = image;
     }
-    console.log(update_info);
     if (update_info?.rent_price) {
       update_info.rent_price = parseInt(update_info.rent_price);
     }
-    console.log(update_info);
-    return NextResponse.json({});
     await prisma.car.update({
       where: { id: id },
       data: update_info,
