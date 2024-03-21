@@ -32,7 +32,7 @@ export default function Page({ params }) {
     error: updateError,
     isLoading,
   } = useSWR(
-    `${process.env.NEXTAUTH_URL}/api/privet/cars/${params.id}`,
+    `${process.env.NEXT_PUBLIC_URL}/api/privet/cars/${params.id}`,
     fetcher
   );
   if (updateError) {
@@ -45,7 +45,7 @@ export default function Page({ params }) {
     try {
       setData(true);
       const response = await fetch(
-        `${process.env.NEXTAUTH_URL}/api/privet/cars/${params.id}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/privet/cars/${params.id}`,
         {
           method: "PATCH",
           body: formData,
@@ -58,7 +58,7 @@ export default function Page({ params }) {
           console.log("jk");
         } else {
           mutate(
-            `${process.env.NEXTAUTH_URL}/api/privet/cars/${params.id}`,
+            `${process.env.NEXT_PUBLIC_URL}/api/privet/cars/${params.id}`,
             updatedData[0],
             false
           );
