@@ -31,7 +31,10 @@ export default function Page({ params }) {
     data: updatedataA,
     error: updateError,
     isLoading,
-  } = useSWR(`http://localhost:3000/api/privet/cars/${params.id}`, fetcher);
+  } = useSWR(
+    `${process.env.NEXTAUTH_URL}/api/privet/cars/${params.id}`,
+    fetcher
+  );
   if (updateError) {
     return <div>error</div>;
   }
@@ -42,7 +45,7 @@ export default function Page({ params }) {
     try {
       setData(true);
       const response = await fetch(
-        `http://localhost:3000/api/privet/cars/${params.id}`,
+        `${process.env.NEXTAUTH_URL}/api/privet/cars/${params.id}`,
         {
           method: "PATCH",
           body: formData,
@@ -55,7 +58,7 @@ export default function Page({ params }) {
           console.log("jk");
         } else {
           mutate(
-            `http://localhost:3000/api/privet/cars/${params.id}`,
+            `${process.env.NEXTAUTH_URL}/api/privet/cars/${params.id}`,
             updatedData[0],
             false
           );
