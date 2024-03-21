@@ -33,15 +33,12 @@ const Navbar = (props: {
     setDarkmode(document.body.classList.contains("dark"));
   }, []);
   const { data: session, status } = useSession();
-  useEffect(() => {
-    console.log(status);
-  }, [status]);
+  useEffect(() => {}, [status]);
   let name = "";
   let email = "";
   let image = "";
 
   if (status === "authenticated") {
-    console.log(session);
     name = session.user.name;
     email = session.user.email;
     image = session.user.image;

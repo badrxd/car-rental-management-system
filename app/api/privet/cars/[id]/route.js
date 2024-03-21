@@ -130,6 +130,10 @@ export async function GET(request, { params }) {
 export async function PATCH(request, { params }) {
   const update_info = {};
   try {
+    // return NextResponse.json(
+    //   { error: true, message: `problem A3chiri` },
+    //   { status: 500 }
+    // );
     const { id } = await params;
     if (!id) {
       return NextResponse.json(
@@ -139,6 +143,8 @@ export async function PATCH(request, { params }) {
         { status: 404 }
       );
     }
+    // console.log(await request.formData(), 33333);
+    // return NextResponse.json({ error: "badr" }, { status: 200 });
     const changes = await request.formData();
     await formDataToObject(update_info, changes);
     const validation = Validator.patchCars(update_info);
@@ -173,21 +179,19 @@ export async function PATCH(request, { params }) {
       }
       update_info.image = image;
     }
-    console.log(update_info);
     if (update_info?.rent_price) {
       update_info.rent_price = parseInt(update_info.rent_price);
     }
-    console.log(update_info);
-    return NextResponse.json({});
-    await prisma.car.update({
+    const b = await prisma.car.update({
       where: { id: id },
       data: update_info,
     });
-
+    console.log(b);
     await deletePhoto(getCar.image);
     return NextResponse.json(
       {
         error: false,
+        b: b,
         message: "Car Info was Updated successfully",
       },
       { status: 200 }

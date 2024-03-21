@@ -80,7 +80,7 @@ export default function Page({ params }) {
   };
 
   const handleClick = () => {
-    setIsDisabled(!isDisabled);
+    // setIsDisabled(!isDisabled);
   };
   const update = (e) => {
     const { name, value } = e.target;
@@ -123,29 +123,25 @@ export default function Page({ params }) {
             height={500}
             alt="Car Image"
           />
-          {isDisabled === false ? (
-            <div className="font-[sans-serif] max-w-md mx-auto flex items-center">
-              <label className="font-bold text-black mb-2 block w-40 ">
-                Upload Image
-              </label>
-              <input
-                name="image"
-                accept="image/png, image/jpeg"
-                type="file"
-                onChange={(e) => {
-                  setUpdateData({ ...updateData, image: e.target.files[0] });
-                }}
-                className="w-full text-black text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-black rounded"
-              />
-              {error?.image ? (
-                <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
-                  {error?.image}
-                </p>
-              ) : null}
-            </div>
-          ) : (
-            ""
-          )}
+          <div className="font-[sans-serif] max-w-md mx-auto flex items-center">
+            <label className="font-bold text-black mb-2 block w-40 ">
+              Upload Image
+            </label>
+            <input
+              name="image"
+              accept="image/png, image/jpeg"
+              type="file"
+              onChange={(e) => {
+                setUpdateData({ ...updateData, image: e.target.files[0] });
+              }}
+              className="w-full text-black text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-black rounded"
+            />
+            {error?.image ? (
+              <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
+                {error?.image}
+              </p>
+            ) : null}
+          </div>
         </div>
         <div className="w-full">
           <h1 className="uppercase p-3 text-gray-700 font-bold">Brand</h1>
@@ -300,36 +296,15 @@ export default function Page({ params }) {
               {error?.rent_price}
             </p>
           ) : null}
-          {isDisabled === false ? (
-            <div className="flex gap-6">
-              <button
-                onClick={() => {
-                  setUpdateData(UpdateData);
-                  setIsDisabled(true);
-                }}
-                className="bg-[#ff2727] text-[#fff] p-2 mt-5 rounded-full w-full"
-              >
-                Cancle
-              </button>
-              <button
-                onClick={() => {
-                  validation();
-                }}
-                className="bg-[#000] text-[#fff] p-2 mt-5 rounded-full w-full"
-              >
-                Update
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={() => {
-                handleClick();
-              }}
-              className="bg-[#000] text-[#fff] p-2 mt-5 rounded-full w-full"
-            >
-              Edit
-            </button>
-          )}
+          <button
+            onClick={() => {
+              handleClick();
+              validation();
+            }}
+            className="bg-[#000] text-[#fff] p-2 mt-5 rounded-full w-full"
+          >
+            Add New Car
+          </button>
         </div>
       </div>
       {/* <div className="bg-[#fff] mt-10 rounded-3xl ">
