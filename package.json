@@ -17,6 +17,7 @@
     "@tanstack/react-table": "^8.13.2",
     "apexcharts": "^3.47.0",
     "class-variance-authority": "^0.7.0",
+    "cloudinary": "^2.0.3",
     "clsx": "^2.1.0",
     "lucide-react": "^0.357.0",
     "multer": "^1.4.5-lts.1",

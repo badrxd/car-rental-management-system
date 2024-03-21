@@ -41,7 +41,7 @@ function CarsTable(props: { tableData: any; tabletitle: any }) {
         //   {info.getValue()}
         // </p>
         <Image
-          src={"/images/" + info.getValue()}
+          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${info.getValue()}`}
           alt="Car"
           width={80}
           height={80}

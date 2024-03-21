@@ -170,16 +170,18 @@ export async function PATCH(request, { params }) {
     }
 
     if (update_info?.image) {
-      const image = await uploadPhoto(update_info.image, "patch");
-      if (image.error) {
-        return NextResponse.json({ error: image.message }, { status: 400 });
+      const image = await uploadPhoto(update_info.image);
+      if (image === false) {
+        return NextResponse.json(
+          { error: "No image was uploaded" },
+          { status: 400 }
+        );
       }
       update_info.image = image;
     }
     if (update_info?.rent_price) {
       update_info.rent_price = parseInt(update_info.rent_price);
     }
-    console.log(update_info);
     const b = await prisma.car.update({
       where: { id: id },
       data: update_info,

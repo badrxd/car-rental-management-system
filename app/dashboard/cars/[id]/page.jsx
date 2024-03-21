@@ -121,7 +121,7 @@ export default function Page({ params }) {
           ) : null}
           <Toaster richColors />
           <Image
-            src={`/images/${updatedataA?.image}`}
+            src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${updatedataA?.image}`}
             width={500}
             height={500}
             alt="Car Image"
