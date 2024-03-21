@@ -4,6 +4,7 @@ import CarsTable from "@/components/dash_components/CarsTable";
 import CarsTableData from "@/components/dash_components/variables/CarsTableData";
 import { cookies } from "next/headers";
 import Loading from "../Loading";
+import Link from "next/link";
 const Cars = async () => {
   const cookieStore = cookies();
   const token =
@@ -42,7 +43,7 @@ const Cars = async () => {
           </div>
           <div>
             <button className="bg-[#000] text-[#fff] p-2 rounded-full w-40">
-              Add New Car
+              <Link href={"/dashboard/cars/newcar"}>Add New Car</Link>
             </button>
           </div>
         </div>
