@@ -170,12 +170,9 @@ export async function PATCH(request, { params }) {
     }
 
     if (update_info?.image) {
-      const image = await uploadPhoto(update_info.image);
-      if (!image) {
-        return NextResponse.json(
-          { error: "No image was uploaded" },
-          { status: 400 }
-        );
+      const image = await uploadPhoto(update_info.image, "patch");
+      if (image.error) {
+        return NextResponse.json({ error: image.message }, { status: 400 });
       }
       update_info.image = image;
     }
@@ -187,6 +184,7 @@ export async function PATCH(request, { params }) {
       where: { id: id },
       data: update_info,
     });
+
     await deletePhoto(getCar.image);
     return NextResponse.json(
       {
@@ -197,7 +195,6 @@ export async function PATCH(request, { params }) {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error.message);
     error.message = "Internal Server Erorr";
 
     if (error?.code === "P2002")
