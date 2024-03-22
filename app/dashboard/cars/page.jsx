@@ -6,12 +6,20 @@ import { cookies } from "next/headers";
 import Loading from "../Loading";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import Btn from "./btn";
+import Search from "./search";
 
 const Cars = async ({ params, searchParams }) => {
   const { page, matricule } = await searchParams;
-  if (page === undefined && matricule === undefined) {
+
+  let search = "";
+  if (matricule !== undefined && page !== undefined) {
+    redirect(`/dashboard/cars?page=1`);
+  } else if (page !== undefined) {
+    search = `?page=${page}&limit=5`;
+  } else if (matricule !== undefined) {
+    search = `?matricule=${matricule}`;
+  } else {
     redirect(`/dashboard/cars?page=1`);
   }
   const cookieStore = cookies();
@@ -20,15 +28,16 @@ const Cars = async ({ params, searchParams }) => {
       ? cookieStore.get("__Secure-next-auth.session-token")?.value
       : cookieStore.get("next-auth.session-token")?.value;
   const reponse = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/privet/cars?page=${page}&limit=5`,
+    `${process.env.NEXTAUTH_URL}/api/privet/cars${search}`,
     {
       cache: "no-store",
       headers: { Authorization: `Bearer ${token}` },
     }
   );
-  revalidatePath("/dashboard/cars");
+
   const data = await reponse.json();
-  if (data.error || data.allCars.length === 0) {
+
+  if (data?.error) {
     return (
       <div className="mt-10">
         <h1 className="text-3xl">Data Not Found</h1>
@@ -40,16 +49,7 @@ const Cars = async ({ params, searchParams }) => {
     <Suspense fallback={<Loading />}>
       <div className="pt-5">
         <div className="flex justify-between bg-[#fff] rounded-full p-5">
-          <div className="flex items-center bg-lightPrimary  dark:bg-navy-900 rounded-full w-96">
-            <p className="pl-3 pr-2 text-xl">
-              <FiSearch className="h-4 w-4 text-gray-400 dark:text-white" />
-            </p>
-            <input
-              type="text"
-              placeholder="Search..."
-              className="block h-full w-full rounded-full bg-lightPrimary text-sm font-medium text-navy-700 outline-none placeholder:!text-gray-400 dark:bg-navy-900 dark:text-white dark:placeholder:!text-white sm:w-full"
-            />
-          </div>
+          <Search matricule />
           <div>
             <button className="bg-[#000] text-[#fff] p-2 rounded-full w-40">
               <Link href={"/dashboard/cars/newcar"}>Add New Car</Link>
@@ -61,7 +61,7 @@ const Cars = async ({ params, searchParams }) => {
         </div>
       </div>
       <div className="flex gap-5 mt-9 justify-end ">
-        <Btn pages={pages} page={page} />
+        {page !== undefined ? <Btn pages={pages} page={page} /> : null}
       </div>
     </Suspense>
   );

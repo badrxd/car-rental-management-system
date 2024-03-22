@@ -9,7 +9,7 @@ type RowObj = {
 };
 export const CarsTableData = (data) => {
   const cardata = [];
-  data.forEach((e) => {
+  data?.forEach((e) => {
     const obj = {
       brand: e.brand,
       model: e.model,

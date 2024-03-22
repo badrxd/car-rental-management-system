@@ -107,7 +107,7 @@ export async function GET(request) {
     const validation = Validator.getCars({ page, limit, matricule });
     if (validation.error) {
       return NextResponse.json(
-        { message: validation.message },
+        { error: true, message: validation.message },
         { status: 400 }
       );
     }
@@ -117,7 +117,7 @@ export async function GET(request) {
         take: parseInt(limit),
       };
     } else if (matricule) {
-      search = { where: { matricule: matricule } };
+      search = { where: { matricule: matricule.toLowerCase() } };
     } else {
       return NextResponse.json(
         {
@@ -134,14 +134,14 @@ export async function GET(request) {
         },
       },
     });
-    if (!allCars) {
-      return NextResponse.json(
-        {
-          message: "No Car Found",
-        },
-        { status: 404 }
-      );
-    }
+    // if (!allCars) {
+    //   return NextResponse.json(
+    //     {
+    //       message: "No Car Found",
+    //     },
+    //     { status: 404 }
+    //   );
+    // }
     return NextResponse.json({ total_cars, allCars }, { status: 200 });
   } catch (error) {
     console.log(error.message);
