@@ -88,7 +88,7 @@ import Validator from "@/lib/backEnd/inputValidation";
  *     description: Add new car
  *     responses:
  *       200:
- *         description: The new car was added
+ *         description: Car is successfully added
  *       409:
  *         description: The car already exists
  *       500:
@@ -127,7 +127,6 @@ export async function GET(request) {
       );
     }
     const allCars = await prisma.car.findMany(search);
-
     const total_cars = await prisma.car.count({
       where: {
         status: {
@@ -173,7 +172,13 @@ export async function POST(request) {
       passenger_capacity,
       rent_price,
     } = car;
-
+    const validation = Validator.postCars(car);
+    if (validation?.error) {
+      return NextResponse.json(
+        { message: validation.message },
+        { status: 400 }
+      );
+    }
     const cheak = await prisma.car.findUnique({
       where: {
         matricule: matricule,
@@ -208,7 +213,7 @@ export async function POST(request) {
         gear_box: gear_box.toUpperCase(),
         passenger_capacity: passenger_capacity,
         rent_price: parseFloat(rent_price),
-        matricule: matricule,
+        matricule: matricule.toLowerCase(),
         image: uploded_image,
       },
     });

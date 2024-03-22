@@ -77,10 +77,10 @@ import Validator from "@/lib/backEnd/inputValidation";
  *         type: string
  *         description: Car id
  *
- *     description: Add new car
+ *     description: Udpate a unique car information
  *     responses:
  *       200:
- *         description: The new car was added
+ *         description: Car information updated
  *       409:
  *         description: The car already exists
  *       500:
@@ -175,6 +175,10 @@ export async function PATCH(request, { params }) {
     }
     if (update_info?.rent_price) {
       update_info.rent_price = parseInt(update_info.rent_price);
+    }
+
+    if (update_info?.matricule) {
+      update_info.matricule = update_info.matricule.toLowerCase();
     }
     const b = await prisma.car.update({
       where: { id: id },
