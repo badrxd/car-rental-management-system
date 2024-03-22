@@ -12,11 +12,14 @@ import prisma from "@/prisma/prisma";
  *         in: query
  *         required: false
  *         type: string
- *         description: driver id of the customer
+ *         description: Customer licence driver
+ *     summary: Get all customers or one customer
  *     description: Returns all customers or one customer
  *     responses:
  *       200:
  *         description: Returns all customers or one customer
+ *       409:
+ *         description: No customer found
  *       500:
  *         description: Internal server error
  *
@@ -44,6 +47,7 @@ import prisma from "@/prisma/prisma";
  *                         - driver_id
  *     tags:
  *       - customers (privet)
+ *     summary: Add customer
  *     description: Add new customer
  *     responses:
  *       200:
@@ -60,7 +64,7 @@ export async function GET(request) {
     const searchParams = await request.nextUrl.searchParams;
     const driverId = await searchParams.get("driver_id");
     if (driverId !== null) {
-      search.driver_id = driverId;
+      search.driver_id = driverId.toLowerCase();
     }
     const allCustomers = await prisma.customer.findMany({
       select: {
@@ -97,7 +101,7 @@ export async function POST(request) {
   try {
     let { full_name, phone, driver_id } = await request.json();
     const find = await prisma.customer.findUnique({
-      where: { driver_id: driver_id },
+      where: { driver_id: driver_id.toLowerCase() },
     });
     if (find) {
       return NextResponse.json(
@@ -110,7 +114,7 @@ export async function POST(request) {
       data: {
         full_name: full_name,
         phone: phone,
-        driver_id: driver_id,
+        driver_id: driver_id.toLowerCase(),
       },
     });
     return NextResponse.json(

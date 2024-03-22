@@ -13,7 +13,8 @@ import Validator from "@/lib/backEnd/inputValidation";
  *         in: query
  *         required: false
  *         type: string
- *         description: Reservation number of the Reservation
+ *         description: Reservation number
+ *     summary: Get Reservations
  *     description: Returns all reservations or one reservations
  *     responses:
  *       200:
@@ -56,6 +57,7 @@ import Validator from "@/lib/backEnd/inputValidation";
  *     tags:
  *       - reservations (privet)
  *     description: Add new reservation
+ *     summary: Add Reservations
  *     responses:
  *       200:
  *         description: The reservation was added

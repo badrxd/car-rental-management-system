@@ -4,6 +4,21 @@ import Validator from "@/lib/backEnd/inputValidation";
 
 export const dynamic = "force-dynamic";
 
+/**
+ * @swagger
+ * /api/privet/dashboard:
+ *   get:
+ *     tags:
+ *       - dashboard (privet)
+ *     summary: Get dashboard data
+ *     description: Returns needed dashboard data
+ *     responses:
+ *       200:
+ *         description: Returns needed dashboard data
+ *       500:
+ *         description: Internal server error
+ */
+
 export async function GET(request) {
   const dash = {
     month: {

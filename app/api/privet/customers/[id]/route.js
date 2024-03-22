@@ -12,8 +12,8 @@ import prisma from "@/prisma/prisma";
  *         in: path
  *         required: true
  *         type: string
- *         description: Echo this name
- *
+ *         description: Customer id
+ *     summary: Get one customer by id
  *     description: Returns unique customer
  *     responses:
  *       200:
@@ -28,7 +28,7 @@ import prisma from "@/prisma/prisma";
  *     requestBody:
  *         required: true
  *         content:
- *             multipart/form-data:
+ *             application/json:
  *                 schema:
  *                     type: object
  *                     properties:
@@ -48,8 +48,8 @@ import prisma from "@/prisma/prisma";
  *         in: path
  *         required: true
  *         type: string
- *         description: Echo this name
- *
+ *         description: Customer id
+ *     summary: Update unique customer information
  *     description: Update unique customer information
  *     responses:
  *       200:
@@ -113,7 +113,7 @@ export async function GET(request, { params }) {
 export async function PATCH(request, { params }) {
   try {
     const { id } = await params;
-    const update_info = await request.json();
+    let update_info = await request.json();
     if (!id) {
       return NextResponse.json(
         {
@@ -139,6 +139,10 @@ export async function PATCH(request, { params }) {
         },
         { status: 404 }
       );
+    }
+
+    if (update_info?.driver_id) {
+      update_info.driver_id = update_info?.driver_id.toLowerCase();
     }
 
     await prisma.customer.update({

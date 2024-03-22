@@ -4,8 +4,49 @@ import Validator from "@/lib/backEnd/inputValidation";
 
 /**
  * @swagger
- * /api/privet/reservations:
+ * /api/privet/reservations/{id}:
  *   get:
+ *     tags:
+ *       - reservations (privet)
+ *     summary: Get a unique reservation
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         type: string
+ *         description: Reservation id
+ *
+ *     description: Returns unique reservation
+ *     responses:
+ *       200:
+ *         description: Returns reservation informations
+ *       404:
+ *         description: No reservation found
+ *       500:
+ *         description: Internal server error
+ *
+ *   patch:
+ *     requestBody:
+ *         required: true
+ *         content:
+ *             application/json:
+ *                 schema:
+ *                     type: object
+ *                     properties:
+ *                         status:
+ *                             type: string
+ *                             description: status of reservation ==> CANCELLED
+ *     tags:
+ *       - reservations (privet)
+ *     description: Cancel reservation
+ *     summary: Cancel Reservation
+ *     responses:
+ *       200:
+ *         description: The reservation was canceled
+ *       404:
+ *         description: No reservation found
+ *       500:
+ *         description: Internal server error
  */
 
 export async function PATCH(request, { params }) {
@@ -47,7 +88,7 @@ export async function PATCH(request, { params }) {
           message:
             "the option restoring the canceled reservation not dispo yet",
         },
-        { status: 200 }
+        { status: 400 }
       );
     }
 

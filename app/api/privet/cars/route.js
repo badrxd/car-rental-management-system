@@ -15,24 +15,24 @@ import Validator from "@/lib/backEnd/inputValidation";
  *         in: query
  *         required: false
  *         type: string
- *         description: page number
+ *         description: Page number
  *
  *       - name: limit
  *         in: query
  *         required: false
  *         type: string
- *         description: limit of cars in the page
+ *         description: Limit of cars in the page
  *
  *       - name: matricule
  *         in: query
  *         required: false
  *         type: string
- *         description: car matricule
- *     summary: Get all cars
- *     description: Returns all cars
+ *         description: Car matricule
+ *     summary: Get cars
+ *     description: Returns cars based on page size and limit or car matricule
  *     responses:
  *       200:
- *         description: Returns all cars
+ *         description: Returns cars
  *       500:
  *         description: Internal server error
  *
@@ -206,7 +206,7 @@ export async function POST(request) {
         color: color,
         fuels: fuels.toUpperCase(),
         gear_box: gear_box.toUpperCase(),
-        passenger_capacity: parseInt(passenger_capacity),
+        passenger_capacity: passenger_capacity,
         rent_price: parseFloat(rent_price),
         matricule: matricule,
         image: uploded_image,
@@ -215,7 +215,7 @@ export async function POST(request) {
     return NextResponse.json(
       {
         message: "Car was added successfully",
-        newCar: newCar,
+        newCar: newCar.id,
       },
       { status: 200 }
     );

@@ -20,7 +20,7 @@ import Validator from "@/lib/backEnd/inputValidation";
  *         in: path
  *         required: true
  *         type: string
- *         description: Echo this name
+ *         description: Car id
  *
  *     description: Returns unique car
  *     responses:
@@ -75,7 +75,7 @@ import Validator from "@/lib/backEnd/inputValidation";
  *         in: path
  *         required: true
  *         type: string
- *         description: Echo this name
+ *         description: Car id
  *
  *     description: Add new car
  *     responses:
@@ -130,10 +130,6 @@ export async function GET(request, { params }) {
 export async function PATCH(request, { params }) {
   const update_info = {};
   try {
-    // return NextResponse.json(
-    //   { error: true, message: `problem A3chiri` },
-    //   { status: 500 }
-    // );
     const { id } = await params;
     if (!id) {
       return NextResponse.json(
@@ -143,8 +139,6 @@ export async function PATCH(request, { params }) {
         { status: 404 }
       );
     }
-    // console.log(await request.formData(), 33333);
-    // return NextResponse.json({ error: "badr" }, { status: 200 });
     const changes = await request.formData();
     await formDataToObject(update_info, changes);
     const validation = Validator.patchCars(update_info);
