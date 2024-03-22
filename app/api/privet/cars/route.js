@@ -157,6 +157,7 @@ export async function POST(request) {
   const car = {};
   let uploded_image = null;
   try {
+
     const data = await request.formData();
     /*
         change data srtuctur from formData to  object
@@ -194,7 +195,7 @@ export async function POST(request) {
 
     if (!uploded_image) {
       return NextResponse.json(
-        { error: "No image was uploaded" },
+        { message: "No image was uploaded" },
         { status: 500 }
       );
     }
@@ -206,7 +207,7 @@ export async function POST(request) {
         color: color,
         fuels: fuels.toUpperCase(),
         gear_box: gear_box.toUpperCase(),
-        passenger_capacity: parseInt(passenger_capacity),
+        passenger_capacity: passenger_capacity,
         rent_price: parseFloat(rent_price),
         matricule: matricule,
         image: uploded_image,
@@ -214,8 +215,8 @@ export async function POST(request) {
     });
     return NextResponse.json(
       {
-        message: "Car was added successfully",
-        newCar: newCar,
+        message: "Car added successfully",
+        newCar: newCar.id,
       },
       { status: 200 }
     );

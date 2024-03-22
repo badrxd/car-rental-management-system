@@ -9,6 +9,11 @@ import { toast, Toaster } from "sonner";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Page({ params }) {
+  const [file, setFile] = useState();
+    function handleChange(e) {
+        console.log(e.target.files);
+        setFile(URL.createObjectURL(e.target.files[0]));
+    }
   const UpdateData = {
     brand: null,
     model: null,
@@ -55,7 +60,6 @@ export default function Page({ params }) {
         const newData = await response.json();
         const updatedData = [newData?.b];
         if (response.status !== 200) {
-          console.log("jk");
         } else {
           mutate(
             `${process.env.NEXT_PUBLIC_URL}/api/privet/cars/${params.id}`,
@@ -69,7 +73,6 @@ export default function Page({ params }) {
         });
       } else {
         const newData = await response.json();
-        console.log(newData);
         toast.error("Error", { description: `${newData.message}` });
         console.error("Failed to add item:");
       }
@@ -121,7 +124,7 @@ export default function Page({ params }) {
           ) : null}
           <Toaster richColors />
           <Image
-            src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${updatedataA?.image}`}
+            src={file ? file : `${process.env.NEXT_PUBLIC_IMAGE_URL}/${updatedataA?.image}`}
             width={500}
             height={500}
             alt="Car Image"
@@ -136,6 +139,7 @@ export default function Page({ params }) {
                 accept="image/png, image/jpeg"
                 type="file"
                 onChange={(e) => {
+                  handleChange(e);
                   setUpdateData({ ...updateData, image: e.target.files[0] });
                 }}
                 className="w-full text-black text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-black rounded"
