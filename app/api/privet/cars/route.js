@@ -3,6 +3,7 @@ import prisma, { Prisma } from "@/prisma/prisma";
 import { formDataToObject } from "@/lib/backEnd/formDataToObject";
 import { uploadPhoto, deletePhoto } from "@/lib/backEnd/handelPhoto";
 import Validator from "@/lib/backEnd/inputValidation";
+import { error } from "console";
 
 /**
  * @swagger
@@ -115,12 +116,16 @@ export async function GET(request) {
       search = {
         skip: (parseInt(page) - 1) * parseInt(limit),
         take: parseInt(limit),
+        orderBy: {
+          createdAt: "desc",
+        },
       };
     } else if (matricule) {
       search = { where: { matricule: matricule.toLowerCase() } };
     } else {
       return NextResponse.json(
         {
+          error: true,
           message: "no param was passed",
         },
         { status: 400 }
