@@ -190,6 +190,7 @@ export default function Page() {
             name="fuels"
             className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
           >
+            <option  value=""></option>
             <option  value="GASOLINE">GASOLINE</option>
             <option  value="DIESEL">DIESEL</option>
           </select>
@@ -221,6 +222,7 @@ export default function Page() {
             name="gear_box"
             className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
           >
+            <option value=""></option>
             <option value="MANUAL">MANUAL</option>
             <option value="AUTOMATIC">AUTOMATIC</option>
           </select>
