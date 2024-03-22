@@ -175,7 +175,7 @@ function CarsTable(props: { tableData: any; tabletitle: any }) {
           <tbody>
             {table
               .getRowModel()
-              .rows.slice(0, 5)
+              .rows.slice(0, 10)
               .map((row) => {
                 return (
                   <tr key={row.id}>

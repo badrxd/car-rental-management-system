@@ -194,7 +194,7 @@ export async function POST(request) {
 
     if (!uploded_image) {
       return NextResponse.json(
-        { error: "No image was uploaded" },
+        { message: "No image was uploaded" },
         { status: 500 }
       );
     }
@@ -214,7 +214,7 @@ export async function POST(request) {
     });
     return NextResponse.json(
       {
-        message: "Car was added successfully",
+        message: "Car added successfully",
         newCar: newCar.id,
       },
       { status: 200 }

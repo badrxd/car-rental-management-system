@@ -15,11 +15,10 @@ const Cars = async () => {
     `${process.env.NEXTAUTH_URL}/api/privet/cars?page=1&limit=10`,
     {
       cache: "no-store",
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}` }
     }
   );
   const data = await reponse.json();
-  console.log(data);
   if (data.error) {
     return (
       <div className="mt-10">
