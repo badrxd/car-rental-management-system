@@ -92,7 +92,7 @@ export default function Page({ params }) {
     const { name, value } = e.target;
     setUpdateData((prevData) => ({
       ...prevData,
-      [name]: value.toLowerCase(),
+      [name]: value === "matricule" ? value.toLowerCase() : value,
     }));
   };
 
@@ -208,17 +208,21 @@ export default function Page({ params }) {
           ) : null}
           <h1 className="uppercase p-3 text-gray-700 font-bold">Fuels</h1>
           <select
+           onChange={(e) => {
+            update(e);
+          }}
             disabled={isDisabled}
             name="fuels"
             id="fuels"
             className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
           >
             <option
-              value={isDisabled ? `${updatedataA?.fuels}` : "GASOLINE"}
+              value={isDisabled ? `${updatedataA?.fuels}` : ""}
               className="font-bold"
             >
-              {isDisabled ? `${updatedataA?.fuels}` : "GASOLINE"}
+              {isDisabled ? `${updatedataA?.fuels}` : ""}
             </option>
+            <option value="GASOLINE">GASOLINE</option>
             <option value="DIESEL">DIESEL</option>
           </select>
           {error?.fuels ? (
@@ -247,18 +251,22 @@ export default function Page({ params }) {
           ) : null}
           <h1 className="uppercase p-3 text-gray-700 font-bold">Gear Box</h1>
           <select
+           onChange={(e) => {
+            update(e);
+          }}
             disabled={isDisabled}
             name="gear_box"
             id="fuels"
             className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
           >
             <option
-              value={isDisabled ? `${updatedataA?.gear_box}` : "MANUAL"}
+              value={isDisabled ? `${updatedataA?.gear_box}` : ""}
               className="font-bold"
             >
-              {isDisabled ? `${updatedataA?.gear_box}` : "MANUAL"}
+              {isDisabled ? `${updatedataA?.gear_box}` : ""}
             </option>
-            <option value="AUTO">AUTO</option>
+            <option value="MANUAL">MANUAL</option>
+            <option value="AUTOMATIC">AUTO</option>
           </select>
           {error?.gear_box ? (
             <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
