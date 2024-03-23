@@ -9,7 +9,6 @@ export async function middleware(req) {
     secret: process.env.JWT_SECRET,
     secureCookie: process.env.NODE_ENV === "production",
   });
-
   if (pathname.startsWith("/api/privet")) {
     if (!session)
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -19,19 +18,17 @@ export async function middleware(req) {
         { status: 403 }
       );
   }
-
   if (pathname.startsWith("/dashboard")) {
     if (!session) return NextResponse.redirect(`${origin}/login`);
     if (session?.role !== "ADMIN") return NextResponse.redirect(`${origin}`);
   }
-
   if (pathname.startsWith("/login")) {
     if (session) return NextResponse.redirect(`${origin}/dashboard`);
   }
-  // if (pathname.startsWith("/403")) {
-  //   if (session && session?.role !== "ADMIN")
-  //     return NextResponse.redirect(`${origin}`);
-  // }
+  if (pathname.startsWith("/403")) {
+    if (session && session?.role !== "ADMIN")
+      return NextResponse.redirect(`${origin}`);
+  }
 }
 
 // export const config = { matcher: ["/badr"] };

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { IoMdPersonAdd } from "react-icons/io";
 import { GrMoney } from "react-icons/gr";
-import { IoBookmarksOutline } from "react-icons/io5";
+import { IoBookmarks } from "react-icons/io5";
 import { MdBlockFlipped } from "react-icons/md";
 import Validator from "@/lib/frontEnd/zodValidation";
 import RentedCarsTable from "@/components/dash_components/RentedCarsTable";
@@ -21,55 +21,11 @@ const Page = ({ params }) => {
     phone: null,
   };
   ///////////////////////////////////////////////////////////////////////////////
+  const formData = new FormData();
   // useStates here
   const [updateData, setUpdateData] = useState(newData);
-  const [isDisabled, setIsDisabled] = useState(true);
   const [error, setEroor] = useState(false);
   let [data, setData] = useState(false);
-  ///////////////////////////////////////////////////////////////////////////////
-
-  //   const cookieStore = cookies();
-  //   const token =
-  //     process.env.NODE_ENV === "production"
-  //       ? cookieStore.get("__Secure-next-auth.session-token")?.value
-  //       : cookieStore.get("next-auth.session-token")?.value;
-  //   const reponse = await fetch(`${process.env.NEXTAUTH_URL}/api/privet/cars`, {
-  //     cache: "no-store",
-  //     headers: { Authorization: `Bearer ${token}` },
-  //   });
-
-  //   const data = await reponse.json();
-
-  //   if (data?.error) {
-  //     return (
-  //       <div className="mt-10">
-  //         <h1 className="text-3xl">Data Not Found</h1>
-  //       </div>
-  //     );
-  //   }
-  ///////////////////////////////////////////////////////////////////////////////
-  // this fetch will get the customer Data using SWR Hook
-  const {
-    data: firstData,
-    error: updateError,
-    isLoading,
-  } = useSWR(
-    `${process.env.NEXT_PUBLIC_URL}/api/privet/customers/${params.id}`,
-    fetcher
-  );
-  if (updateError) {
-    return <div>error</div>;
-  }
-  if (isLoading) {
-    return <div>loading jawad</div>;
-  }
-  const profiledata = firstData.customer;
-  ///////////////////////////////////////////////////////////////////////////////
-  // here i will handel the edit button click
-  const btnClick = () => {
-    setIsDisabled(!isDisabled);
-  };
-
   ///////////////////////////////////////////////////////////////////////////////
   // this function will update the data on the onChange event
   const update = (e) => {
@@ -81,21 +37,18 @@ const Page = ({ params }) => {
     }));
   };
   ///////////////////////////////////////////////////////////////////////////////
-
-  ///////////////////////////////////////////////////////////////////////////////
   // here we will handel the update profil data function
-  const updateProfileData = async () => {
+  const addNewCustomer = async () => {
     try {
       setData(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_URL}/api/privet/customers/${params.id}`,
         {
           method: "PATCH",
-          body: updateData,
+          body: formData,
         }
       );
       if (response.ok) {
-        console.log("ok ok ok ok ok ok");
         const newData = await response.json();
         const updatedData = [newData?.b];
         if (response.status !== 200) {
@@ -106,46 +59,43 @@ const Page = ({ params }) => {
             false
           );
         }
-        setIsDisabled(true);
         toast.success("Success", {
-          description: "Profile Info Updated successfully",
+          description: "Customer added successfully",
         });
       } else {
         const newData = await response.json();
-        console.log(response);
         toast.error("Error", { description: `${newData.message}` });
-        console.error("Failed to Update The Profile:");
+        console.error("Failed to Add The Customer:");
       }
     } catch (error) {
       console.log("Error");
       console.log(error);
-      console.error("Error Updating Profile:", error);
+      console.error("Error Adding Customer:", error);
     } finally {
       setData(false);
     }
   };
-
-  // const validation = () => {
-  //   console.log("test error");
-  //   const err = Validator.profilevalidation(updateData, setEroor);
-  //   setEroor(err);
-  //   console.log(err);
-  //   if (err?.error !== false) {
-  //     return null;
-  //   }
-  //   let c = 0;
-  //   for (const key in updateData) {
-  //     const obj = updateData[key];
-  //     if (obj !== null && obj !== "") {
-  //       c += 1;
-  //       formData.append(key, obj);
-  //     }
-  //   }
-  //   if (c === 0) {
-  //     return null;
-  //   }
-  //   // updateProfileData();
-  // };
+  const validation = () => {
+    console.log("test error");
+    const err = Validator.profilevalidation(updateData, setEroor);
+    setEroor(err);
+    console.log(err);
+    if (err?.error !== false) {
+      return null;
+    }
+    let c = 0;
+    for (const key in updateData) {
+      const obj = updateData[key];
+      if (obj !== null && obj !== "") {
+        c += 1;
+        formData.append(key, obj);
+      }
+    }
+    if (c === 0) {
+      return null;
+    }
+    // updateProfileData();
+  };
   ///////////////////////////////////////////////////////////////////////////////
   return (
     <>
@@ -168,33 +118,33 @@ const Page = ({ params }) => {
                 </div> */}
             </div>
             <div className="w-full p-5 flex flex-col justify-center items-start">
-              <h1 className="text-3xl font-bold">{profiledata.full_name}</h1>
-              <h1 className="mt-3">Driver ID: {profiledata.driver_id}</h1>
-              <h1 className="mt-3">Phone: {profiledata.phone}</h1>
-              <h1 className="mt-3">Joind: 3 months ago</h1>
+              <h1 className="text-3xl font-bold">Full Name</h1>
+              <h1 className="mt-3">Driver ID</h1>
+              <h1 className="mt-3">Phone Number</h1>
+              <h1 className="mt-3">Joind 3 months ago</h1>
             </div>
           </div>
           <div className="flex justify-between">
-            <span className="flex flex-col items-center p-5">
+            <span className="flex flex-col items-center gap-2 p-5">
               <span className="flex gap-2 font-bold">
                 <GrMoney className="text-2xl" />
                 SPENDING
               </span>
-              {profiledata.spending}
+              12
             </span>
-            <span className="flex flex-col items-center p-5">
+            <span className="flex flex-col items-center gap-2 p-5">
               <span className="flex gap-2 font-bold">
-                <IoBookmarksOutline className="text-2xl font-bold" />
+                <IoBookmarks className="text-2xl" />
                 N° Reservations
               </span>
-              {profiledata.num_of_res}
+              12
             </span>
-            <span className="flex flex-col items-center p-5">
+            <span className="flex flex-col items-center gap-2 p-5">
               <span className="flex gap-2 font-bold">
                 <MdBlockFlipped className="text-2xl" />
                 BLACK LIST
               </span>
-              {profiledata.balcklist ? "YES" : "NO"}
+              YES
             </span>
           </div>
         </div>
@@ -208,8 +158,6 @@ const Page = ({ params }) => {
             type="text"
             name="full_name"
             placeholder="full name"
-            disabled={isDisabled}
-            value={isDisabled ? profiledata?.full_name : firstData.full_name}
           />
           {error?.full_name ? (
             <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
@@ -225,8 +173,6 @@ const Page = ({ params }) => {
             type="text"
             name="driver_id"
             placeholder="driver id"
-            disabled={isDisabled}
-            value={isDisabled ? profiledata?.driver_id : firstData.driver_id}
           />
           {error?.driver_id ? (
             <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
@@ -244,8 +190,6 @@ const Page = ({ params }) => {
             type="number"
             name="phone"
             placeholder="phone number"
-            disabled={isDisabled}
-            value={isDisabled ? profiledata?.phone : firstData.phone}
           />
           {error?.phone ? (
             <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
@@ -255,31 +199,12 @@ const Page = ({ params }) => {
         </div>
       </div>
       <div className="flex justify-end gap-2">
-        {isDisabled ? (
-          <button
-            onClick={btnClick}
-            className="bg-[#000] text-[#fff] p-2 mt-5 rounded-full w-40"
-          >
-            Edit
-          </button>
-        ) : (
-          <>
-            <button className="bg-[#f92929] text-[#fff] p-2 mt-5 rounded-full w-40">
-              Cancle
-            </button>
-            <button
-              onClick={() => updateProfileData()}
-              className="bg-[#000000] text-[#fff] p-2 mt-5 rounded-full w-40"
-            >
-              Update
-            </button>
-          </>
-        )}
-      </div>
-      <div className="mt-5 rounded-2xl">
-        <RentedCarsTable
-        // tableData={RentedCarsData(data.RentedCars)}
-        />
+        <button
+          //   onClick={() => addNewCustomer()}
+          className="bg-[#000000] text-[#fff] p-2 mt-5 rounded-full w-40"
+        >
+          Add New Customer
+        </button>
       </div>
     </>
   );

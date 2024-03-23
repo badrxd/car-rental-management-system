@@ -10,10 +10,10 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Page({ params }) {
   const [file, setFile] = useState();
-    function handleChange(e) {
-        console.log(e.target.files);
-        setFile(URL.createObjectURL(e.target.files[0]));
-    }
+  function handleChange(e) {
+    console.log(e.target.files);
+    setFile(URL.createObjectURL(e.target.files[0]));
+  }
   const UpdateData = {
     brand: null,
     model: null,
@@ -124,7 +124,11 @@ export default function Page({ params }) {
           ) : null}
           <Toaster richColors />
           <Image
-            src={file ? file : `${process.env.NEXT_PUBLIC_IMAGE_URL}/${updatedataA?.image}`}
+            src={
+              file
+                ? file
+                : `${process.env.NEXT_PUBLIC_IMAGE_URL}/${updatedataA?.image}`
+            }
             width={500}
             height={500}
             alt="Car Image"
@@ -208,9 +212,9 @@ export default function Page({ params }) {
           ) : null}
           <h1 className="uppercase p-3 text-gray-700 font-bold">Fuels</h1>
           <select
-           onChange={(e) => {
-            update(e);
-          }}
+            onChange={(e) => {
+              update(e);
+            }}
             disabled={isDisabled}
             name="fuels"
             id="fuels"
@@ -251,9 +255,9 @@ export default function Page({ params }) {
           ) : null}
           <h1 className="uppercase p-3 text-gray-700 font-bold">Gear Box</h1>
           <select
-           onChange={(e) => {
-            update(e);
-          }}
+            onChange={(e) => {
+              update(e);
+            }}
             disabled={isDisabled}
             name="gear_box"
             id="fuels"

@@ -72,24 +72,20 @@ export async function GET(request, { params }) {
       );
     }
     const getCustomer = await prisma.customer.findUnique({
-      select: {
-        id: true,
-        full_name: true,
-        phone: true,
-        driver_id: true,
-        balcklist: true,
-        note: true,
-        num_of_res: true,
-        spending: true,
-      },
       where: {
         id: id,
+      },
+      include: {
+        reservation: {
+          include: { Date_range: true },
+        },
       },
     });
 
     if (!getCustomer) {
       return NextResponse.json(
         {
+          error: true,
           message: "No Customer Found",
         },
         { status: 404 }

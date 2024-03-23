@@ -51,7 +51,9 @@ const Customer = async ({ params, searchParams }) => {
           <Search />
           <div>
             <button className="bg-[#000] text-[#fff] p-2 rounded-full w-40">
-              <Link href={"/dashboard/customers"}>Add New Customer</Link>
+              <Link href={"/dashboard/customers/newcustomer"}>
+                Add New Customer
+              </Link>
             </button>
           </div>
         </div>
