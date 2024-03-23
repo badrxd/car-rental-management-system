@@ -5,16 +5,16 @@ import Validator from "@/lib/frontEnd/zodValidation";
 import { toast, Toaster } from "sonner";
 
 function Search() {
-  const [matricule, setMatricule] = useState("");
+  const [driver_id, setDriverId] = useState("");
   const validate = () => {
-    const err = Validator.cardatavalidation({ matricule });
+    const err = Validator.findCusByLicId({ driver_id });
     if (err?.error !== false) {
-      toast.error("Error", { description: `${err.matricule}` });
+      toast.error("Error", { description: `${err.message}` });
       return null;
     }
-    window.location.replace(`/dashboard/cars?matricule=${matricule}`);
+    window.location.replace(`/dashboard/customers?driver_id=${driver_id}`);
   };
-  useEffect(() => {}, [matricule]);
+  useEffect(() => {}, [driver_id]);
   return (
     <div className="flex items-center bg-lightPrimary  dark:bg-navy-900 rounded-full w-96">
       <span className="pl-3 pr-2 text-xl">
@@ -27,9 +27,9 @@ function Search() {
         </button>
       </span>
       <input
-        value={matricule}
+        value={driver_id}
         onChange={(e) => {
-          setMatricule(e.target.value);
+          setDriverId(e.target.value.toLowerCase());
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
@@ -37,7 +37,7 @@ function Search() {
           }
         }}
         type="text"
-        placeholder="Car Plate..."
+        placeholder="License ID..."
         className="block h-full w-full rounded-full bg-lightPrimary text-sm font-medium text-navy-700 outline-none placeholder:!text-gray-400 dark:bg-navy-900 dark:text-white dark:placeholder:!text-white sm:w-full"
       />
       <Toaster richColors />

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/prisma/prisma";
-
+import Validator from "@/lib/backEnd/inputValidation";
 /**
  * @swagger
  * /api/privet/customers:
@@ -8,6 +8,18 @@ import prisma from "@/prisma/prisma";
  *     tags:
  *       - customers (privet)
  *     parameters:
+ *       - name: page
+ *         in: query
+ *         required: false
+ *         type: string
+ *         description: Page number
+ *
+ *       - name: limit
+ *         in: query
+ *         required: false
+ *         type: string
+ *         description: Limit of cars in the page
+ *
  *       - name: driver_id
  *         in: query
  *         required: false
@@ -59,12 +71,38 @@ import prisma from "@/prisma/prisma";
  */
 
 export async function GET(request) {
-  const search = {};
+  let search = {};
   try {
     const searchParams = await request.nextUrl.searchParams;
+    const page = await searchParams.get("page");
+    const limit = await searchParams.get("limit");
     const driverId = await searchParams.get("driver_id");
-    if (driverId !== null) {
-      search.driver_id = driverId.toLowerCase();
+    const validation = Validator.getCustomers({
+      page,
+      limit,
+      driver_id: driverId,
+    });
+    if (validation.error) {
+      return NextResponse.json(
+        { error: true, message: validation.message },
+        { status: 400 }
+      );
+    }
+    if (parseInt(page) && parseInt(limit)) {
+      search = {
+        skip: (parseInt(page) - 1) * parseInt(limit),
+        take: parseInt(limit),
+      };
+    } else if (driverId) {
+      search = { where: { driver_id: driverId.toLowerCase() } };
+    } else {
+      return NextResponse.json(
+        {
+          error: true,
+          message: "no param was passed",
+        },
+        { status: 400 }
+      );
     }
     const allCustomers = await prisma.customer.findMany({
       select: {
@@ -77,17 +115,11 @@ export async function GET(request) {
         num_of_res: true,
         spending: true,
       },
-      where: search,
+      ...search,
     });
-    if (!allCustomers) {
-      return NextResponse.json(
-        {
-          message: "No Customer Found",
-        },
-        { status: 404 }
-      );
-    }
-    return NextResponse.json(allCustomers, { status: 200 });
+    const totalCustomers = await prisma.customer.count({});
+
+    return NextResponse.json({ totalCustomers, allCustomers }, { status: 200 });
   } catch (error) {
     console.log(error.message);
     return NextResponse.json(
