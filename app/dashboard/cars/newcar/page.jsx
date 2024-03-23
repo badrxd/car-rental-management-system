@@ -94,9 +94,10 @@ export default function Page() {
       <div className="mt-5 bg-[#fff] flex justify-between p-5 gap-5 rounded-2xl">
         <div className="w-full flex flex-col justify-center items-center gap-10">
           {isMutating ? (
-            <div className="fixed bg-gray-400 opacity-50 h-full w-full top-0 left-0 bottom-0 right-0 z-50">
+            <>
               <Loading />
-            </div>
+              <div className="fixed bg-gray-400 opacity-50 h-full w-full top-0 left-0 bottom-0 right-0 z-50"></div>
+            </>
           ) : null}
           <Toaster richColors />
           {file ? (
