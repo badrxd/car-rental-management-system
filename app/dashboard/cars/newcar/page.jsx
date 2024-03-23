@@ -4,26 +4,26 @@ import Image from "next/image";
 import { MdFileUpload } from "react-icons/md";
 import { useSession } from "next-auth/react";
 import Validator from "@/lib/frontEnd/zodValidation";
-import useSWRMutation from 'swr/mutation'
+import useSWRMutation from "swr/mutation";
 import { toast, Toaster } from "sonner";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
+import Loading from "@/components/dash_components/loading";
 
 async function sendData(url, { arg }) {
   return fetch(url, {
-    method: 'POST',
-    body: arg
-  })
+    method: "POST",
+    body: arg,
+  });
 }
 
-
 export default function Page() {
-  const router = useRouter()
+  const router = useRouter();
   // Preview the car image before upload
   const [file, setFile] = useState();
   function handleChange(e) {
-      console.log(e.target.files);
-      setFile(URL.createObjectURL(e.target.files[0]));
-   }
+    console.log(e.target.files);
+    setFile(URL.createObjectURL(e.target.files[0]));
+  }
   const CarData = {
     brand: null,
     model: null,
@@ -39,14 +39,17 @@ export default function Page() {
   const [CarNewData, setCarNewData] = useState(CarData);
   const [zodError, setZodError] = useState(false);
 
-  const { trigger, error, isMutating} = useSWRMutation(`${process.env.NEXT_PUBLIC_URL}/api/privet/cars`, sendData)
+  const { trigger, error, isMutating } = useSWRMutation(
+    `${process.env.NEXT_PUBLIC_URL}/api/privet/cars`,
+    sendData
+  );
 
-   if (error) {
+  if (error) {
     return <div>error</div>;
-  } 
- 
-  const handleAddItem = async () =>{
-    try{
+  }
+
+  const handleAddItem = async () => {
+    try {
       const result = await trigger(formData);
       const data = await result.json();
       if (result.ok) {
@@ -54,14 +57,12 @@ export default function Page() {
           description: "Car Added successfully",
         });
         return setInterval(() => {
-          return router.push(`/dashboard/cars/${data.newCar}`)
+          return router.push(`/dashboard/cars/${data.newCar}`);
         }, 3000);
-      }else
-      {
+      } else {
         toast.error("Error", { description: `${data.message}` });
       }
-
-    }catch(error){
+    } catch (error) {
       toast.error("Error", { description: `${error.message}` });
     }
   };
@@ -69,7 +70,7 @@ export default function Page() {
     const { name, value } = e.target;
     setCarNewData((prevData) => ({
       ...prevData,
-      [name]: name === 'matricule' ? value.toLowerCase() : value,
+      [name]: name === "matricule" ? value.toLowerCase() : value,
     }));
   };
 
@@ -84,37 +85,35 @@ export default function Page() {
       const obj = CarNewData[key];
       formData.append(key, obj);
     }
-    return true
+    return true;
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => {
-  },[zodError,CarNewData])
+  useEffect(() => {}, [zodError, CarNewData]);
   return (
     <>
       <div className="mt-5 bg-[#fff] flex justify-between p-5 gap-5 rounded-2xl">
         <div className="w-full flex flex-col justify-center items-center gap-10">
           {isMutating ? (
-            <div className="fixed bg-gray-400 opacity-50 h-full w-full top-0 left-0 bottom-0 right-0 z-50"></div>
+            <div className="fixed bg-gray-400 opacity-50 h-full w-full top-0 left-0 bottom-0 right-0 z-50">
+              <Loading />
+            </div>
           ) : null}
           <Toaster richColors />
-          {file ? <Image
-            src={file}
-            width={500}
-            height={500}
-            alt="Car Image"
-          /> : 
-          <div className="col-span-5 h-[400px] w-full rounded-xl bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6">
-        <div className="flex h-full w-full flex-col items-center justify-center rounded-xl border-[2px] border-dashed border-gray-200 py-3 dark:!border-navy-700 lg:pb-0">
-          <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
-          <h4 className="text-xl font-bold text-brand-500 dark:text-white">
-            Uploaded image
-          </h4>
-          <p className="mt-2 text-sm font-medium text-gray-600">
-            PNG, JPG files are allowed
-          </p>
-        </div>
-      </div>
-          }
+          {file ? (
+            <Image src={file} width={500} height={500} alt="Car Image" />
+          ) : (
+            <div className="col-span-5 h-[400px] w-full rounded-xl bg-lightPrimary dark:!bg-navy-700 2xl:col-span-6">
+              <div className="flex h-full w-full flex-col items-center justify-center rounded-xl border-[2px] border-dashed border-gray-200 py-3 dark:!border-navy-700 lg:pb-0">
+                <MdFileUpload className="text-[80px] text-brand-500 dark:text-white" />
+                <h4 className="text-xl font-bold text-brand-500 dark:text-white">
+                  Uploaded image
+                </h4>
+                <p className="mt-2 text-sm font-medium text-gray-600">
+                  PNG, JPG files are allowed
+                </p>
+              </div>
+            </div>
+          )}
           <div className="font-[sans-serif] max-w-md mx-auto flex items-center">
             <label className="font-bold text-black mb-2 block w-40 ">
               Upload Image
@@ -139,9 +138,9 @@ export default function Page() {
         <div className="w-full">
           <h1 className="uppercase p-3 text-gray-700 font-bold">Brand</h1>
           <input
-          onChange={(e) => {
-            update(e);
-          }}
+            onChange={(e) => {
+              update(e);
+            }}
             className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
             type="text"
             name="brand"
@@ -184,15 +183,15 @@ export default function Page() {
           ) : null}
           <h1 className="uppercase p-3 text-gray-700 font-bold">Fuels</h1>
           <select
-          onChange={(e) => {
-            update(e);
-          }}
+            onChange={(e) => {
+              update(e);
+            }}
             name="fuels"
             className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
           >
-            <option  value=""></option>
-            <option  value="GASOLINE">GASOLINE</option>
-            <option  value="DIESEL">DIESEL</option>
+            <option value=""></option>
+            <option value="GASOLINE">GASOLINE</option>
+            <option value="DIESEL">DIESEL</option>
           </select>
           {zodError?.fuels ? (
             <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
@@ -216,9 +215,9 @@ export default function Page() {
           ) : null}
           <h1 className="uppercase p-3 text-gray-700 font-bold">Gear Box</h1>
           <select
-           onChange={(e) => {
-            update(e);
-          }}
+            onChange={(e) => {
+              update(e);
+            }}
             name="gear_box"
             className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
           >
@@ -264,12 +263,11 @@ export default function Page() {
             </p>
           ) : null}
           <button
-            onClick={async() => {
+            onClick={async () => {
               const b = await validation();
               if (b) {
                 await handleAddItem();
               }
-              
             }}
             className="bg-[#000] text-[#fff] p-2 mt-5 rounded-full w-full"
           >

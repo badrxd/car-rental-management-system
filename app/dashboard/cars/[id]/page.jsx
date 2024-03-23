@@ -5,15 +5,16 @@ import { useSession } from "next-auth/react";
 import Validator from "@/lib/frontEnd/zodValidation";
 import useSWR, { mutate } from "swr";
 import { toast, Toaster } from "sonner";
+import Loading from "@/components/dash_components/loading";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Page({ params }) {
   const [file, setFile] = useState();
-    function handleChange(e) {
-        console.log(e.target.files);
-        setFile(URL.createObjectURL(e.target.files[0]));
-    }
+  function handleChange(e) {
+    console.log(e.target.files);
+    setFile(URL.createObjectURL(e.target.files[0]));
+  }
   const UpdateData = {
     brand: null,
     model: null,
@@ -44,7 +45,7 @@ export default function Page({ params }) {
     return <div>error</div>;
   }
   if (isLoading) {
-    return <div>loading jawad</div>;
+    return <Loading />;
   }
   const handleAddItem = async () => {
     try {
@@ -120,11 +121,18 @@ export default function Page({ params }) {
       <div className="mt-5 bg-[#fff] flex justify-between p-5 rounded-2xl">
         <div className="w-full flex flex-col justify-start items-center gap-10">
           {data === true ? (
-            <div className="fixed bg-gray-400 opacity-50 h-full w-full top-0 left-0 bottom-0 right-0 z-50"></div>
+            <>
+              <Loading />
+              <div className="fixed bg-gray-400 opacity-50 h-full w-full top-0 left-0 bottom-0 right-0 z-40"></div>
+            </>
           ) : null}
           <Toaster richColors />
           <Image
-            src={file ? file : `${process.env.NEXT_PUBLIC_IMAGE_URL}/${updatedataA?.image}`}
+            src={
+              file
+                ? file
+                : `${process.env.NEXT_PUBLIC_IMAGE_URL}/${updatedataA?.image}`
+            }
             width={500}
             height={500}
             alt="Car Image"
@@ -208,9 +216,9 @@ export default function Page({ params }) {
           ) : null}
           <h1 className="uppercase p-3 text-gray-700 font-bold">Fuels</h1>
           <select
-           onChange={(e) => {
-            update(e);
-          }}
+            onChange={(e) => {
+              update(e);
+            }}
             disabled={isDisabled}
             name="fuels"
             id="fuels"
@@ -251,9 +259,9 @@ export default function Page({ params }) {
           ) : null}
           <h1 className="uppercase p-3 text-gray-700 font-bold">Gear Box</h1>
           <select
-           onChange={(e) => {
-            update(e);
-          }}
+            onChange={(e) => {
+              update(e);
+            }}
             disabled={isDisabled}
             name="gear_box"
             id="fuels"
