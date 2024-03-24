@@ -26,6 +26,8 @@
     "next-swagger-doc": "^0.4.0",
     "react": "^18",
     "react-apexcharts": "^1.4.1",
+    "react-calendar": "^4.8.0",
+    "react-date-range": "^2.0.0-alpha.4",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
     "sass": "^1.72.0",

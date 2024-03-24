@@ -101,7 +101,7 @@ function ReservationsTable(props: { tableData: any; tabletitle: any }) {
         <p className="text-sm font-bold text-gray-600 dark:text-white ">SHOW</p>
       ),
       cell: (info) => (
-        <Link href={`/dashboard/customers/${info.getValue()}`}>
+        <Link href={`/dashboard/reservations/${info.getValue()}`}>
           <IoEyeOutline className="text-1xl" />
         </Link>
       ),

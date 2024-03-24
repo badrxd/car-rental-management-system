@@ -1,14 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { IoMdPersonAdd } from "react-icons/io";
 import { GrMoney } from "react-icons/gr";
 import { IoBookmarks } from "react-icons/io5";
 import { MdBlockFlipped } from "react-icons/md";
 import Validator from "@/lib/frontEnd/zodValidation";
-import RentedCarsTable from "@/components/dash_components/RentedCarsTable";
-import RentedCarsData from "@/components/dash_components/variables/RentedCarsData";
-import useSWR, { mutate } from "swr";
+import { mutate } from "swr";
 import { toast, Toaster } from "sonner";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());

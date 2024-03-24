@@ -47,11 +47,13 @@ const Reservations = async ({ params, searchParams }) => {
   return (
     <Suspense fallback={<Loading />}>
       <div className="pt-5">
-        <div className="flex justify-between bg-[#fff] rounded-full p-5">
+        <div className="flex justify-end bg-[#fff] rounded-full p-5">
           {/* <Search /> */}
           <div>
             <button className="bg-[#000] text-[#fff] p-2 rounded-full w-40">
-              <Link href={"/dashboard/customers"}>Add New Reservation</Link>
+              <Link href={"/dashboard/reservations/newreservation"}>
+                New Reservation
+              </Link>
             </button>
           </div>
         </div>
@@ -69,4 +71,3 @@ const Reservations = async ({ params, searchParams }) => {
 };
 
 export default Reservations;
-

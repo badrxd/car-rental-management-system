@@ -1,6 +1,7 @@
-import Hero from "@/components/Hero"
-import Popularcars from "@/components/Popularcars"
-import Cars from "@/components/Cars"
+import Hero from "@/components/Hero";
+import Popularcars from "@/components/Popularcars";
+import Cars from "@/components/Cars";
+import Howitwork from "@/components/Howitwork";
 
 export default function Home() {
   return (
@@ -8,9 +9,9 @@ export default function Home() {
       <Hero />
       <h1 className="font-bold text-3xl mt-5">Our Popular Cars</h1>
       <Popularcars />
+      <Howitwork />
       <h1 className="font-bold text-3xl mt-5">All Cars</h1>
       <Cars />
     </main>
   );
 }
- 
