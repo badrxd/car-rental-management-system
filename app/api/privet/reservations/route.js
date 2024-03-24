@@ -106,6 +106,7 @@ export async function GET(request) {
         orderBy: {
           createdAt: "desc",
         },
+        include: { Date_range: true },
       };
     } else if (reservation_number) {
       search = { where: { reservation_number: Number(reservation_number) } };

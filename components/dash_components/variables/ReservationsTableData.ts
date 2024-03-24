@@ -11,10 +11,10 @@ export const ReservationsTableData = (data) => {
   data?.forEach((e) => {
     const obj = {
       reservation_number: e.reservation_number,
-      status: e.model,
-      amount: e.image,
+      status: e.status,
+      amount: e.amount,
       start_date: e.Date_range.start_date,
-      end_date: e.num_of_res.end_date,
+      end_date: e.Date_range.end_date,
       id:e.id,
     };
     cardata.push(obj);
