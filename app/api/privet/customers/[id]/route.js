@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/prisma/prisma";
+import Validator from "@/lib/backEnd/inputValidation";
 
 /**
  * @swagger
@@ -41,6 +42,12 @@ import prisma from "@/prisma/prisma";
  *                         driver_id:
  *                             type: string
  *                             description: The driver id of the customer
+ *                         balcklist:
+ *                             type: boolean
+ *                             description: true or false
+ *                         note:
+ *                             type: string
+ *                             description: reason of the block
  *     tags:
  *       - customers (privet)
  *     parameters:
@@ -63,11 +70,10 @@ import prisma from "@/prisma/prisma";
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
-    if (!id) {
+    const validation = Validator.patchCustomers({ id });
+    if (validation.error) {
       return NextResponse.json(
-        {
-          message: "Car id is required",
-        },
+        { error: true, message: validation.message },
         { status: 400 }
       );
     }
@@ -77,7 +83,9 @@ export async function GET(request, { params }) {
       },
       include: {
         reservation: {
-          include: { Date_range: true },
+          include: {
+            Date_range: true,
+          },
         },
       },
     });
@@ -110,15 +118,14 @@ export async function PATCH(request, { params }) {
   try {
     const { id } = await params;
     let update_info = await request.json();
-    if (!id) {
+
+    const validation = Validator.patchCustomers({ ...update_info, id });
+    if (validation.error) {
       return NextResponse.json(
-        {
-          message: "Customer id is required",
-        },
+        { error: true, message: validation.message },
         { status: 400 }
       );
     }
-
     if (Object.keys(update_info).length === 0) {
       return NextResponse.json({}, { status: 200 });
     }
@@ -131,6 +138,7 @@ export async function PATCH(request, { params }) {
     if (!getCustomer) {
       return NextResponse.json(
         {
+          error: true,
           message: "No customer Found",
         },
         { status: 404 }

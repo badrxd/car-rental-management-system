@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/prisma/prisma";
 import Validator from "@/lib/backEnd/inputValidation";
+
 /**
  * @swagger
  * /api/privet/customers:
@@ -92,6 +93,9 @@ export async function GET(request) {
       search = {
         skip: (parseInt(page) - 1) * parseInt(limit),
         take: parseInt(limit),
+        orderBy: {
+          createdAt: "desc",
+        },
       };
     } else if (driverId) {
       search = { where: { driver_id: driverId.toLowerCase() } };
@@ -132,12 +136,23 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     let { full_name, phone, driver_id } = await request.json();
+    const validation = Validator.postCustomers({
+      full_name,
+      phone,
+      driver_id,
+    });
+    if (validation.error) {
+      return NextResponse.json(
+        { error: true, message: validation.message },
+        { status: 400 }
+      );
+    }
     const find = await prisma.customer.findUnique({
       where: { driver_id: driver_id.toLowerCase() },
     });
     if (find) {
       return NextResponse.json(
-        { message: "Customer already exist" },
+        { error: true, message: "Customer already exist" },
         { status: 409 }
       );
     }
@@ -151,12 +166,14 @@ export async function POST(request) {
     });
     return NextResponse.json(
       {
+        error: true,
         message: "Customer successfully added",
         customer: customer.id,
       },
       { status: 200 }
     );
   } catch (error) {
+    console.log(error.message);
     error.message = "Internal Server Erorr";
 
     if (error?.name === "PrismaClientValidationError") {

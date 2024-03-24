@@ -9,6 +9,18 @@ import Validator from "@/lib/backEnd/inputValidation";
  *     tags:
  *       - reservations (privet)
  *     parameters:
+ *       - name: page
+ *         in: query
+ *         required: false
+ *         type: string
+ *         description: Page number
+ *
+ *       - name: limit
+ *         in: query
+ *         required: false
+ *         type: string
+ *         description: Limit of reservations in the page
+ *
  *       - name: reservation_number
  *         in: query
  *         required: false
@@ -70,22 +82,45 @@ import Validator from "@/lib/backEnd/inputValidation";
  */
 
 export async function GET(request) {
-  const search = {};
+  let search = {};
   try {
     const searchParams = await request.nextUrl.searchParams;
+    const page = await searchParams.get("page");
+    const limit = await searchParams.get("limit");
     const reservation_number = await searchParams.get("reservation_number");
-    if (reservation_number !== null) {
-      const validation = Validator.getReservation(reservation_number);
-      if (validation.error) {
-        return NextResponse.json(
-          { message: validation.message },
-          { status: 400 }
-        );
-      }
-      search.reservation_number = Number(reservation_number);
+    const validation = Validator.GetReservations({
+      page,
+      limit,
+      reservation_number,
+    });
+    if (validation.error) {
+      return NextResponse.json(
+        { error: true, message: validation.message },
+        { status: 400 }
+      );
+    }
+    if (parseInt(page) && parseInt(limit)) {
+      search = {
+        skip: (parseInt(page) - 1) * parseInt(limit),
+        take: parseInt(limit),
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: { Date_range: true },
+      };
+    } else if (reservation_number) {
+      search = { where: { reservation_number: Number(reservation_number) } };
+    } else {
+      return NextResponse.json(
+        {
+          error: true,
+          message: "no param was passed",
+        },
+        { status: 400 }
+      );
     }
     const allReservation = await prisma.reservation.findMany({
-      where: search,
+      ...search,
       include: {
         Date_range: {
           select: {
@@ -98,7 +133,11 @@ export async function GET(request) {
         },
       },
     });
-    return NextResponse.json(allReservation, { status: 200 });
+    const totalReservations = await prisma.reservation.count({});
+    return NextResponse.json(
+      { totalReservations, allReservation },
+      { status: 200 }
+    );
   } catch (error) {
     console.log(error.message);
     return NextResponse.json(
