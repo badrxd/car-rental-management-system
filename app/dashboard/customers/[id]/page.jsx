@@ -6,8 +6,8 @@ import { GrMoney } from "react-icons/gr";
 import { IoBookmarksOutline } from "react-icons/io5";
 import { MdBlockFlipped } from "react-icons/md";
 import Validator from "@/lib/frontEnd/zodValidation";
-import RentedCarsTable from "@/components/dash_components/RentedCarsTable";
-import RentedCarsData from "@/components/dash_components/variables/RentedCarsData";
+import ReservationsTable from "@/components/dash_components/ReservationsTable";
+import ReservationsTableData from "@/components/dash_components/variables/ReservationsTableData";
 import useSWR, { mutate } from "swr";
 import { toast, Toaster } from "sonner";
 
@@ -64,6 +64,7 @@ const Page = ({ params }) => {
     return <div>loading jawad</div>;
   }
   const profiledata = firstData.customer;
+  console.log(profiledata.reservation);
   ///////////////////////////////////////////////////////////////////////////////
   // here i will handel the edit button click
   const btnClick = () => {
@@ -95,7 +96,6 @@ const Page = ({ params }) => {
         }
       );
       if (response.ok) {
-        console.log("ok ok ok ok ok ok");
         const newData = await response.json();
         const updatedData = [newData?.b];
         if (response.status !== 200) {
@@ -277,8 +277,8 @@ const Page = ({ params }) => {
         )}
       </div>
       <div className="mt-5 rounded-2xl">
-        <RentedCarsTable
-        // tableData={RentedCarsData(data.RentedCars)}
+        <ReservationsTable
+          tableData={ReservationsTableData(profiledata.reservation)}
         />
       </div>
     </>

@@ -24,7 +24,7 @@ type RowObj = {
   id: string;
 };
 
-function CustomersTable(props: { tableData: any; tabletitle: any }) {
+function ReservationsTable(props: { tableData: any; tabletitle: any }) {
   const { tableData, tabletitle } = props;
   const [sorting, setSorting] = React.useState<SortingState>([]);
   let defaultData = tableData;
@@ -32,8 +32,8 @@ function CustomersTable(props: { tableData: any; tabletitle: any }) {
     columnHelper.accessor("reservation_number", {
       id: "reservation_number",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          Full Name
+        <p className="text-sm uppercase font-bold text-gray-600 dark:text-white">
+          Rev ID
         </p>
       ),
       cell: (info: any) => (
@@ -46,7 +46,7 @@ function CustomersTable(props: { tableData: any; tabletitle: any }) {
       id: "status",
       header: () => (
         <p className="text-sm font-bold uppercase text-gray-600 dark:text-white">
-          license id
+          status
         </p>
       ),
       cell: (info) => (
@@ -59,7 +59,7 @@ function CustomersTable(props: { tableData: any; tabletitle: any }) {
       id: "amount",
       header: () => (
         <p className="text-sm font-bold uppercase text-gray-600 dark:text-white">
-          Phone Number
+          amount
         </p>
       ),
       cell: (info: any) => (
@@ -71,8 +71,8 @@ function CustomersTable(props: { tableData: any; tabletitle: any }) {
     columnHelper.accessor("start_date", {
       id: "start_date",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          N° Reservations
+        <p className="text-sm uppercase font-bold text-gray-600 dark:text-white">
+          start date
         </p>
       ),
       cell: (info) => (
@@ -86,7 +86,7 @@ function CustomersTable(props: { tableData: any; tabletitle: any }) {
       id: "end_date",
       header: () => (
         <p className="text-sm uppercase font-bold text-gray-600 dark:text-white">
-          spending
+          end date
         </p>
       ),
       cell: (info) => (
@@ -187,5 +187,5 @@ function CustomersTable(props: { tableData: any; tabletitle: any }) {
   );
 }
 
-export default CustomersTable;
+export default ReservationsTable;
 const columnHelper = createColumnHelper<RowObj>();
