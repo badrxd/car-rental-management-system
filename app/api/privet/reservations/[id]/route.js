@@ -49,6 +49,11 @@ import Validator from "@/lib/backEnd/inputValidation";
  *         description: Internal server error
  */
 
+export async function GET(request, { params }) {
+  try {
+  } catch (error) {}
+}
+
 export async function PATCH(request, { params }) {
   try {
     const { id } = await params;
