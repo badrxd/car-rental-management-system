@@ -5,8 +5,8 @@ import { cookies } from "next/headers";
 import Loading from "../Loading";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-// import Btn from "./btn";
-// import Search from "./search";
+import Btn from "./btn";
+import Search from "./search";
 
 const Reservations = async ({ params, searchParams }) => {
   const { page, reservation_number } = await searchParams;
@@ -15,7 +15,7 @@ const Reservations = async ({ params, searchParams }) => {
   if (reservation_number !== undefined && page !== undefined) {
     redirect(`/dashboard/reservations?page=1`);
   } else if (page !== undefined) {
-    search = `?page=${page}&limit=5`;
+    search = `?page=${page}&limit=10`;
   } else if (reservation_number !== undefined) {
     search = `?reservation_number=${reservation_number}`;
   } else {
@@ -43,12 +43,12 @@ const Reservations = async ({ params, searchParams }) => {
       </div>
     );
   }
-  const pages = Math.ceil(Number(data.totalReservations) / 5);
+  const pages = Math.ceil(Number(data.totalReservations) / 10);
   return (
     <Suspense fallback={<Loading />}>
       <div className="pt-5">
-        <div className="flex justify-end bg-[#fff] rounded-full p-5">
-          {/* <Search /> */}
+        <div className="flex justify-between bg-[#fff] rounded-full p-5">
+          <Search />
           <div>
             <button className="bg-[#000] text-[#fff] p-2 rounded-full w-40">
               <Link href={"/dashboard/reservations/newreservation"}>
@@ -64,7 +64,7 @@ const Reservations = async ({ params, searchParams }) => {
         </div>
       </div>
       <div className="flex gap-5 mt-9 justify-end ">
-        {/* {page !== undefined ? <Btn pages={pages} page={page} /> : null} */}
+        {page !== undefined ? <Btn pages={pages} page={page} /> : null}
       </div>
     </Suspense>
   );

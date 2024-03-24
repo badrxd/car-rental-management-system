@@ -1,11 +1,7 @@
 "use client";
-
-import React, { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React from "react";
 
 function Btn({ pages, page }) {
-  const router = useRouter();
-
   const changePage = (direction, page) => {
     console.log(pages, page);
     if (
@@ -14,12 +10,7 @@ function Btn({ pages, page }) {
     ) {
       return null;
     }
-    // router.push(`/dashboard/cars?page=${page}`);
-    // setInterval(() => {
-    //   location.reload();
-    // }, 1000);
-
-    window.location.replace(`/dashboard/cars?page=${page}`);
+    window.location.replace(`/dashboard/reservations?page=${page}`);
   };
   return (
     <>

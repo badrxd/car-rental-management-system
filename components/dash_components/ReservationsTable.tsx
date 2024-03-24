@@ -4,6 +4,7 @@ import CardMenu from "@/components/dash_components/card";
 import Card from "@/components/dash_components/card";
 import { FaRegEdit } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
+import { getDate } from "@/lib/frontEnd/getDate";
 
 import {
   createColumnHelper,
@@ -77,7 +78,7 @@ function ReservationsTable(props: { tableData: any; tabletitle: any }) {
       ),
       cell: (info) => (
         <p className="text-sm uppercase font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
+          {getDate(info.getValue())}
         </p>
       ),
     }),
@@ -91,7 +92,7 @@ function ReservationsTable(props: { tableData: any; tabletitle: any }) {
       ),
       cell: (info) => (
         <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
+          {getDate(info.getValue())}
         </p>
       ),
     }),

@@ -30,6 +30,7 @@ const Navbar = (props: {
   const { onOpenSidenav, brandText, mini, hovered } = props;
   const [darkmode, setDarkmode] = React.useState(false);
   useEffect(() => {
+    !localStorage.getItem("dark") ? null : document.body.classList.add("dark");
     setDarkmode(document.body.classList.contains("dark"));
   }, []);
   const { data: session, status } = useSession();
@@ -81,9 +82,11 @@ const Navbar = (props: {
             if (darkmode) {
               document.body.classList.remove("dark");
               setDarkmode(false);
+              localStorage.removeItem("dark");
             } else {
               document.body.classList.add("dark");
               setDarkmode(true);
+              localStorage.setItem("dark", "true");
             }
           }}
         >
