@@ -3,7 +3,6 @@ import prisma, { Prisma } from "@/prisma/prisma";
 import { formDataToObject } from "@/lib/backEnd/formDataToObject";
 import { uploadPhoto, deletePhoto } from "@/lib/backEnd/handelPhoto";
 import Validator from "@/lib/backEnd/inputValidation";
-import { error } from "console";
 
 /**
  * @swagger
