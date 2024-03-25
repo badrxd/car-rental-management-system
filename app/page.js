@@ -5,7 +5,7 @@ import Howitwork from "@/components/Howitwork";
 import BestCar from "@/components/BestCar";
 
 export default async function Home() {
-  const CarData = await fetch(`${process.env.NEXTAUTH_URL}api/public/cars`);
+  const CarData = await fetch(`${process.env.NEXTAUTH_URL}/api/public/cars`);
   const result = await CarData.json();
   console.log(result);
   return (
