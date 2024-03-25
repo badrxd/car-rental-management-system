@@ -6,8 +6,8 @@ export default function Cars({ data }) {
     <>
       <div className="grid gap-4 grid-cols-3 grid-rows-2 pt-10">
         {data
-          .map((item) => {
-            return <Carcard item={item} />;
+          .map((item, key) => {
+            return <Carcard item={item} key={key} />;
           })
           .slice(0, 9)}
       </div>
