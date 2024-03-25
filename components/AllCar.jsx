@@ -5,8 +5,8 @@ export default function AllCar({ data }) {
   return (
     <>
       <div className="grid gap-4 grid-cols-3 grid-rows-2 pt-10">
-        {data.map((item) => {
-          return <Carcard item={item} />;
+        {data.map((item, key) => {
+          return <Carcard item={item} key={key} />;
         })}
       </div>
     </>
