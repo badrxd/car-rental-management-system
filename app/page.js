@@ -4,7 +4,10 @@ import Cars from "@/components/Cars";
 import Howitwork from "@/components/Howitwork";
 import BestCar from "@/components/BestCar";
 
-export default function Home() {
+export default async function Home() {
+  const CarData = await fetch(`${process.env.NEXTAUTH_URL}/api/public/cars`);
+  const result = await CarData.json();
+  console.log(result);
   return (
     <main className="max-w-6xl mx-auto">
       <Hero />
