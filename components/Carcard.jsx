@@ -5,9 +5,9 @@ import { GiGearStickPattern } from "react-icons/gi";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { CiHeart } from "react-icons/ci";
 
-export default function Carcard({ item }) {
+export default function Carcard({ item, key }) {
   return (
-    <div className="p-5 bg-[#fafafa] rounded-lg flex flex-col gap-8">
+    <div key={key} className="p-5 bg-[#fafafa] rounded-lg flex flex-col gap-8">
       <div className="flex justify-between">
         <div>
           <h1 className="font-bold uppercase">{item?.model}</h1>
