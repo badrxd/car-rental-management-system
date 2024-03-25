@@ -11,7 +11,7 @@ export default async function Home() {
   });
   const result = await CarData.json();
   return (
-    <main className="max-w-6xl mx-auto">
+    <main className="max-w-6xl mx-auto relative">
       <Hero />
       <h1 className="font-bold text-3xl mt-5">Our Popular Cars</h1>
       <Popularcars data={result.top_cars} />
