@@ -4,10 +4,11 @@ import { GiGasPump } from "react-icons/gi";
 import { GiGearStickPattern } from "react-icons/gi";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { CiHeart } from "react-icons/ci";
+import BookNowBtn from "@/components/BookNowBtn";
 
-export default function Carcard({ item, key }) {
+export default function Carcard({ item }) {
   return (
-    <div key={key} className="p-5 bg-[#fafafa] rounded-lg flex flex-col gap-8">
+    <div className="p-5 bg-[#fafafa] rounded-lg flex flex-col gap-8">
       <div className="flex justify-between">
         <div>
           <h1 className="font-bold uppercase">{item?.model}</h1>
@@ -41,9 +42,7 @@ export default function Carcard({ item, key }) {
       </div>
       <div className="flex justify-between items-center">
         <span>{item?.rent_price} DH/Day</span>
-        <button className="bg-[#000000] hover:bg-[#454545] text-white rounded-lg p-2">
-          Book Now
-        </button>
+        <BookNowBtn data={item} />
       </div>
     </div>
   );
