@@ -8,14 +8,14 @@ export default function Howitwork() {
     <div className="bg-[] mt-5 p-5 rounded-xl flex flex-col ">
       <div className="flex flex-col justify-center items-center">
         <div>
-          <h1 className="text-[60px] font-bold">How it works</h1>
+          <h1 className="text-[60px] sm:text-4xl font-bold">How it works</h1>
         </div>
         <div className="flex flex-col justify-center items-center font-bold">
           <p>Folllow these step and easily book you comfortable cars</p>
           <p> Enjoy you trips with Favorite car</p>
         </div>
       </div>
-      <div className="flex gap-8 mt-[80px]">
+      <div className=" grid lg:gap-4 lg:grid-cols-3 gap-[80px] mx-6  mt-[80px] ">
         <div className="bg-[#fff] p-4 flex flex-col justify-center items-center  w-full rounded-xl relative">
           <div className="bg-[#060606] w-[100px] h-[100px] rounded-full flex justify-center items-center absolute top-[-40%] left-1/2 transform -translate-x-1/2 -translate-y-0">
             <FaCarRear className="text-3xl text-[#fff]" />

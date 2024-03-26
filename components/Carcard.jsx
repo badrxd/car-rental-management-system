@@ -12,6 +12,7 @@ export default function Carcard({ item }) {
       <div className="flex justify-between">
         <div>
           <h1 className="font-bold uppercase">{item?.model}</h1>
+          <h1 className="uppercase">{item?.brand}</h1>
         </div>
         <div className="">
           <CiHeart className="text-3xl cursor-pointer" />

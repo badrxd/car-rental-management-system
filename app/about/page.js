@@ -5,10 +5,11 @@ function About() {
   return (
     <div className="max-w-6xl mx-auto flex-col sm:flex-row justify-between p-8 items-center">
       <div>
-        <h1 className=" text-2xl font-bold">
-          Welcome to
-          <span className="text-[#f1c40f]">
-            Car<span className="text-black font-bold">Rent</span>
+        <h1 className=" text-2xl flex gap-1">
+          <h1 className=" font-bold">Welcome to</h1>
+          <span>
+            <span>CAR</span>
+            <span className="font-bold">RENT</span>
           </span>
         </h1>
         <br />
@@ -56,7 +57,13 @@ function About() {
         </p>
       </div>
       <div>
-        <Image  className="mx-auto rounded-s-full" alt="about-car" src={'/hero-image.jpeg'} width={700} height={500}/>
+        <Image
+          className="mx-auto rounded-s-full"
+          alt="about-car"
+          src={"/hero-image.jpeg"}
+          width={700}
+          height={500}
+        />
       </div>
     </div>
   );

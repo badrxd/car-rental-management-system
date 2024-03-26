@@ -6,6 +6,7 @@ import "react-calendar/dist/Calendar.css";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import "@/components/dash_components/styles/MiniCalendar.css";
 import { SidebarContext } from "@/app/dashboard/reservations/newreservation/Context";
+import { IoMdCloseCircle } from "react-icons/io";
 
 const MiniCalendar = ({ time }) => {
   let { rev, setRev, search, setSearch } = useContext(SidebarContext);
@@ -36,7 +37,7 @@ const MiniCalendar = ({ time }) => {
     } else {
       Days = 0;
     }
-    Days <= 0 ? (days = 0) : (days = Days);
+    Days <= 0 ? (days = 0) : (days = Math.floor(Days));
     setSearch({ ...search, days: days });
     setRev({ ...rev, ...the_time, amount: Number(days) * search.price });
   }, [value]);
@@ -44,14 +45,14 @@ const MiniCalendar = ({ time }) => {
   return (
     <>
       <Card extra="flex w-full h-full flex-col px-3 py-3 border-slate-700 border-2">
-        <div className="flex w-full justify-end">
+        <div className="flex w-full justify-end rounded-full mb-2">
           <button
-            className="my-2 w-7 bg-[#000000] text-white rounded-3xl"
+            className=" bg-[#000000] text-white rounded-full "
             onClick={() => {
               setSearch({ ...search, [time]: false });
             }}
           >
-            X
+            <IoMdCloseCircle className="text-xl" />
           </button>
         </div>
         <Calendar
@@ -59,8 +60,12 @@ const MiniCalendar = ({ time }) => {
             setValue(new Date(String(e)));
           }}
           value={value}
-          prevLabel={<MdChevronLeft className="ml-1 h-6 w-6 " />}
-          nextLabel={<MdChevronRight className="ml-1 h-6 w-6 " />}
+          prevLabel={
+            <MdChevronLeft className=" bg-[#000] w-full h-full rounded-md " />
+          }
+          nextLabel={
+            <MdChevronRight className="bg-[#000] w-full h-full rounded-md" />
+          }
           view={"month"}
         />
       </Card>
