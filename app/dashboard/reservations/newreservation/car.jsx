@@ -73,7 +73,7 @@ function Car({ search: Search }) {
           )}
         </div>
       ) : (
-        <>{data.message}</>
+        <div className="flex justify-end text-[#ef8686]">{data.message}</div>
       )}
     </div>
   );

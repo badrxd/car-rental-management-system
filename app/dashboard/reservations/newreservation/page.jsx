@@ -103,8 +103,16 @@ export default function Page() {
               />
             </div>
             <div className="flex flex-col gap-3">
-              <div>{valError?.car_id}</div>
-              {search.car ? <Car valError={valError} search={car} /> : "no car"}
+              <div className="flex justify-end  text-[#ef8686]">
+                {valError?.car_id}
+              </div>
+              {search.car ? (
+                <Car search={car} />
+              ) : (
+                <div className="flex justify-center font-bold uppercase text-[#ebebeb] text-xl p-5">
+                  <h1>No Car</h1>
+                </div>
+              )}
             </div>
           </div>
           {/* /////////////////////////////////////////////////////////////////////////////////////////////////////// */}
@@ -131,11 +139,15 @@ export default function Page() {
               />
             </div>
             <div className="flex flex-col gap-3">
-              <div>{valError?.customer_id}</div>
+              <div className="flex justify-end  text-[#ef8686]">
+                {valError?.customer_id}
+              </div>
               {search.customer ? (
                 <Customer valError={valError} search={customer} />
               ) : (
-                "no Customer"
+                <div className="flex justify-center font-bold uppercase text-[#ebebeb] text-xl p-5">
+                  <h1>no Customer</h1>
+                </div>
               )}
             </div>
           </div>
@@ -177,20 +189,22 @@ export default function Page() {
           </div>
           <div className="flex justify-between gap-2 mt-5 px-5">
             <h1 className="text-xl font-bold">From</h1>
-            <h1>
+            <h1 className="text-xl font-bold">
               {rev.start_date.length > 0 ? getDate(rev.start_date) : null}
             </h1>
-            <div>{valError?.start_date}</div>
+            <div className=" text-[#ef8686]">{valError?.start_date}</div>
             <h1 className="text-xl font-bold">To</h1>
-            <h1>{rev.end_date.length > 0 ? getDate(rev.end_date) : null}</h1>
-            <div>{valError?.end_date}</div>
+            <h1 className="text-xl font-bold">
+              {rev.end_date.length > 0 ? getDate(rev.end_date) : null}
+            </h1>
+            <div className=" text-[#ef8686]">{valError?.end_date}</div>
           </div>
           <div className="mt-5">
             <h1 className="text-xl font-bold">Rent Days : {search.days}</h1>
             <h1 className="text-xl font-bold">
               Total Amount : {search.price === 0 ? 0 : rev.amount}
             </h1>
-            <div>{valError?.amount}</div>
+            <div className="text-[#ef8686]">{valError?.amount}</div>
           </div>
           <div className="flex justify-center">
             <button

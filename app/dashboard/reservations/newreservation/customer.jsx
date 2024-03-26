@@ -71,7 +71,7 @@ function Customer({ valError, search }) {
           )}
         </>
       ) : (
-        <>{data.message}</>
+        <div className="flex justify-end text-[#ef8686]">{data.message}</div>
       )}
     </div>
   );
