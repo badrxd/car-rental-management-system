@@ -88,6 +88,7 @@ export async function GET(request, { params }) {
 
     return NextResponse.json(
       {
+        error: false,
         reservation: getReservation,
       },
       { status: 200 }
