@@ -40,6 +40,12 @@ import Validator from "@/lib/backEnd/inputValidation";
  *       - reservations (privet)
  *     description: Cancel reservation
  *     summary: Cancel Reservation
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         type: string
+ *         description: Reservation id
  *     responses:
  *       200:
  *         description: The reservation was canceled
@@ -51,7 +57,47 @@ import Validator from "@/lib/backEnd/inputValidation";
 
 export async function GET(request, { params }) {
   try {
-  } catch (error) {}
+    const { id } = await params;
+    // const validation = Validator.patchCustomers({ id });
+    // if (validation.error) {
+    //   return NextResponse.json(
+    //     { error: true, message: validation.message },
+    //     { status: 400 }
+    //   );
+    // }
+    const getReservation = await prisma.reservation.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        Car: true,
+        Customer: true,
+        Date_range: true,
+      },
+    });
+
+    if (!getReservation) {
+      return NextResponse.json(
+        {
+          error: true,
+          message: "No Reservation Found",
+        },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        reservation: getReservation,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: true, message: "Internal Server Erorr" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function PATCH(request, { params }) {
@@ -59,18 +105,28 @@ export async function PATCH(request, { params }) {
     const { id } = await params;
     const { status } = await request.json();
     const validation = Validator.patchReservation({ id, status });
+    if (validation.error) {
+      return NextResponse.json(
+        { message: validation.message },
+        { status: 400 }
+      );
+    }
 
     const reservation = await prisma.reservation.findUnique({
       where: { id: id },
       include: {
-        Car: { num_of_res: true },
+        Car: {
+          select: {
+            num_of_res: true,
+          },
+        },
         Customer: {
           select: {
             num_of_res: true,
             spending: true,
           },
         },
-        Revenue: { select: { total_amount: true } },
+        Revenue: { select: { total_amount: true, total_rented_cars: true } },
       },
     });
 
@@ -111,7 +167,6 @@ export async function PATCH(request, { params }) {
         spending: reservation.Customer.spending - reservation.amount,
       },
     });
-
     //  revenue
     await prisma.revenue.update({
       where: { id: reservation.Revenue_id },
