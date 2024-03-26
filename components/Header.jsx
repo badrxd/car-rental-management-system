@@ -1,9 +1,12 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Menuitems from "@/components/Menuitems";
 import Link from "next/link";
 import { MdOutlineMenu } from "react-icons/md";
 
 export default function Header() {
+  const [change, setChange] = useState(false);
+
   return (
     <div className="flex gap-4 justify-between p-3 max-w-6xl mx-auto items-center">
       <Link className="uppercase" href="/">
@@ -18,7 +21,7 @@ export default function Header() {
         <Menuitems title="Contact" link="/contact" />
       </nav>
       <div>
-        <button className="bg-[#000000] text-white rounded-full w-20 hover:bg-[#454545] p-2 hidden sm:block ">
+        <button className="bg-[#200d0d] text-white rounded-full w-20 hover:bg-[#454545] p-2 hidden sm:block ">
           <a href="/login">Login</a>
         </button>
       </div>
