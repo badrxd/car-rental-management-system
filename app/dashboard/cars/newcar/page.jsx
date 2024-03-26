@@ -56,9 +56,6 @@ export default function Page() {
         toast.success("Success", {
           description: "Car Added successfully",
         });
-        return setInterval(() => {
-          return router.push(`/dashboard/cars/${data.newCar}`);
-        }, 3000);
       } else {
         toast.error("Error", { description: `${data.message}` });
       }
