@@ -264,7 +264,7 @@ export const lineChartDataTotalSpent = [
     name: "Revenue",
     data: [],
     // data: [50, 64, 48, 66, 49, 68, 34, 65, 43, 67, 54, 87],
-    color: "#000",
+    color: "#000000",
   },
 ];
 
