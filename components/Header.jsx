@@ -7,12 +7,12 @@ export default function Header() {
   return (
     <div className="flex gap-4 justify-between p-3 max-w-6xl mx-auto items-center">
       <Link className="uppercase" href="/">
-        <p className="text-[#f1c40f] text-2xl">
+        <p className="text-[#000000] text-2xl">
           Car<span className="text-black font-bold">Rent</span>
         </p>
       </Link>
-      <nav className="sm:flex gap-4 hidden">
-      <Menuitems title="Home" link="/" />
+      <nav className="sm:flex gap-4 hidden font-bold">
+        <Menuitems title="Home" link="/" />
         <Menuitems title="Rent Now" link="/cars" />
         <Menuitems title="About Us" link="/about" />
         <Menuitems title="Contact" link="/contact" />
