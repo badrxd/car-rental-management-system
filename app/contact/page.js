@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { MdOutlineEmail } from "react-icons/md";
 
@@ -10,6 +11,7 @@ function Contact() {
           <p>
             We&apos;re here to help. Contcat us for any inquiries or support
           </p>
+          <Image src={"/map.png"} alt="map image" width={950} height={500} />
         </div>
         <div>
           <div>
