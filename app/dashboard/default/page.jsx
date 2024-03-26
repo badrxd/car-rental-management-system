@@ -43,7 +43,7 @@ const Default = async () => {
           subtitle={`${data.year_earnings} MAD`}
         />
         <Widget
-          icon={<IoPersonSharp className="h-6 w-6" />}
+          icon={<IoPersonSharp className="h-6 w-6 text-black" />}
           title={"Customers"}
           subtitle={data.total_customers}
         />
