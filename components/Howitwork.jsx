@@ -8,7 +8,7 @@ export default function Howitwork() {
     <div className="bg-[] mt-5 p-5 rounded-xl flex flex-col ">
       <div className="flex flex-col justify-center items-center">
         <div>
-          <h1 className="text-[60px] font-bold">How it works</h1>
+          <h1 className="text-[60px] sm:text-4xl font-bold">How it works</h1>
         </div>
         <div className="flex flex-col justify-center items-center font-bold">
           <p>Folllow these step and easily book you comfortable cars</p>

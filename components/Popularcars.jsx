@@ -3,7 +3,7 @@ import Carcard from "@/components/Carcard";
 
 export default function Popularcars({ data }) {
   return (
-    <div className=" grid gap-4 lg:grid-cols-3 md:grid-cols-2 mx-6 pt-10">
+    <div className=" grid gap-4 lg:grid-cols-3 md:grid-cols-2 pt-10">
       {data.map((item, key) => {
         return <Carcard item={item} key={key} />;
       })}

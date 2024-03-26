@@ -26,7 +26,7 @@ export default function BookNowBtn({ data }) {
                 <GrClose className="text-[30px] font-bold" />
               </button>
             </div>
-            <div className="flex justify-between gap-4 mt-4 pb-10 ">
+            <div className="flex justify-between sm:flex-col gap-4 mt-4 pb-10 ">
               <div className="">
                 <div className="flex justify-center">
                   <h1 className="text-[35px] font-bold uppercase">
