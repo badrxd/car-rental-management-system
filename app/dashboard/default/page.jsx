@@ -65,7 +65,7 @@ const Default = async () => {
         <WeeklyRevenue dataMonth={data?.month} />
       </div>
       {/* Complex Table , Task & Calendar */}
-      <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
+      <div className="mt-5 flex flex-col gap-4">
         <TopCustomers
           tabletitle={"Top Customers"}
           tableData={CustomersData(data?.top_customers)}

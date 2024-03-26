@@ -6,7 +6,7 @@ export default function BestCar(data) {
   let randomIndex = Math.floor(Math.random() * singalData.length);
   const singal = singalData[randomIndex];
   return (
-    <div className="bg-[#fff] mt-5 rounded-xl flex gap-3 justify-between items-center p-5">
+    <div className="bg-[#fff] mt-5 rounded-xl flex gap-3 justify-between lg:flex-row flex-col items-center p-5">
       <div className="flex flex-col justify-between gap-4 items-start p-5">
         <h1 className="text-[50px] font-bold uppercase">{singal.model}</h1>
         <h1 className="text-[20px] text-[#a2a2a2] uppercase font-bold">
