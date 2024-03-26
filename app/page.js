@@ -4,10 +4,11 @@ import Cars from "@/components/Cars";
 import Howitwork from "@/components/Howitwork";
 import BestCar from "@/components/BestCar";
 import Link from "next/link";
+// export const revalidate = 60;
 
 export default async function Home() {
   const CarData = await fetch(`${process.env.NEXTAUTH_URL}/api/public/cars`, {
-    cache: "no-store",
+    next: { revalidate: 10 },
   });
   const result = await CarData.json();
   return (

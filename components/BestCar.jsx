@@ -5,6 +5,9 @@ export default function BestCar(data) {
   const singalData = data.data;
   let randomIndex = Math.floor(Math.random() * singalData.length);
   const singal = singalData[randomIndex];
+  if (!singal) {
+    return <div></div>;
+  }
   return (
     <div className="bg-[#fff] mt-5 rounded-xl flex gap-3 justify-between lg:flex-row flex-col items-center p-5">
       <div className="flex flex-col justify-between gap-4 items-start p-5">
