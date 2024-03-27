@@ -8,7 +8,7 @@ export const revalidate = 10;
 
 export default async function Home() {
   const CarData = await fetch(`${process.env.NEXTAUTH_URL}/api/public/cars`, {
-    next: { tags: ["home"] },
+    cache: "no-store",
   });
   const result = await CarData.json();
   return (

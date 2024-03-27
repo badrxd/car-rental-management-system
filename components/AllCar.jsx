@@ -1,6 +1,5 @@
 import React from "react";
 import Carcard from "@/components/Carcard";
-export const revalidate = 10;
 
 export default function AllCar({ data }) {
   return (
