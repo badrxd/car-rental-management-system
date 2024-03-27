@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma, { Prisma } from "@/prisma/prisma";
+import { revalidateTag } from "next/cache";
 
 /**
  * @swagger
@@ -30,7 +31,11 @@ export async function GET(request) {
         status: "AVAILABLE",
       },
     });
-    return NextResponse.json({ top_cars, allCars }, { status: 200 });
+    revalidateTag("home");
+    return NextResponse.json(
+      { revalidated: true, now: Date.now(), top_cars, allCars },
+      { status: 200 }
+    );
   } catch (error) {
     console.log(error.message);
     return NextResponse.json(
