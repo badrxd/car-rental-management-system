@@ -29,7 +29,7 @@ export default function BookNowBtn({ data }) {
             <div className="flex justify-between sm:flex-col gap-4 mt-4 pb-10 ">
               <div className="">
                 <div className="flex justify-center">
-                  <h1 className="text-[35px] font-bold uppercase">
+                  <h1 className="text-[34px] font-bold uppercase">
                     {data.model}
                   </h1>
                 </div>
