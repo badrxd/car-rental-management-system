@@ -20,6 +20,14 @@ const TotalSpent = ({ dataMonth }) => {
     data.push(dataMonth[i].total_amount);
   }
   lineChartDataTotalSpent[0].data = data;
+  const date = new Date();
+  let curentMonth = date.getMonth();
+  let monthAmount;
+  for (let i = 0; i < data.length; i++) {
+    if (i === curentMonth) {
+      monthAmount = data[i];
+    }
+  }
   data = [];
   return (
     <Card extra="!p-[20px] text-center">
@@ -36,7 +44,7 @@ const TotalSpent = ({ dataMonth }) => {
       <div className="flex h-full w-full flex-row justify-between sm:flex-wrap lg:flex-nowrap 2xl:overflow-hidden">
         <div className="flex flex-col">
           <p className="mt-[20px] text-3xl font-bold text-navy-700 dark:text-white">
-            {"5400 MAD"}
+            {monthAmount} DH
           </p>
         </div>
         <div className="h-full w-full">
