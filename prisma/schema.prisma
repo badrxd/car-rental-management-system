@@ -79,7 +79,7 @@ model Customer {
   phone           String
   driver_id       String        @unique
   driver_id_image String?
-  balcklist       Boolean       @default(false)
+  blacklist       Boolean       @default(false)
   note            String        @default("")
   reservation     Reservation[]
   num_of_res      Int           @default(0)
