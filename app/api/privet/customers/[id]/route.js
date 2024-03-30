@@ -118,6 +118,7 @@ export async function PATCH(request, { params }) {
   try {
     const { id } = await params;
     let update_info = await request.json();
+    console.log(request.json());
 
     const validation = Validator.patchCustomers({ ...update_info, id });
     if (validation.error) {
@@ -149,7 +150,7 @@ export async function PATCH(request, { params }) {
       update_info.driver_id = update_info?.driver_id.toLowerCase();
     }
 
-    await prisma.customer.update({
+    const customer = await prisma.customer.update({
       where: { id: id },
       data: update_info,
     });
@@ -157,11 +158,13 @@ export async function PATCH(request, { params }) {
     return NextResponse.json(
       {
         error: false,
+        customer: customer,
         message: "Customer Info was Updated successfully",
       },
       { status: 200 }
     );
   } catch (error) {
+    console.log(error.message);
     error.message = "Internal Server Erorr";
 
     if (error?.code === "P2002")
