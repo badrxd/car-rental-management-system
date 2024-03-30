@@ -164,8 +164,7 @@ export async function PATCH(request, { params }) {
     );
   } catch (error) {
     console.log(error.message);
-    // error.message = "";
-    // error.message = "Internal Server Erorr";
+    error.message = "Internal Server Erorr";
 
     if (error?.code === "P2002")
       error.message = "Driver id belong to another customer";
