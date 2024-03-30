@@ -114,7 +114,7 @@ export async function GET(request) {
         full_name: true,
         phone: true,
         driver_id: true,
-        balcklist: true,
+        blacklist: true,
         note: true,
         num_of_res: true,
         spending: true,

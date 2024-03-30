@@ -4,7 +4,7 @@ type RowObj = {
   phone: string;
   num_of_res: number;
   spending: string;
-  balcklist: boolean;
+  blacklist: boolean;
   id: string;
 };
 export const AllCarsTableData = (data) => {
@@ -16,8 +16,8 @@ export const AllCarsTableData = (data) => {
       phone: e.phone,
       num_of_res: e.num_of_res,
       spending: e.spending,
-      balcklist:e.balcklist,
-      id:e.id,
+      blacklist: e.blacklist,
+      id: e.id,
     };
     customerData.push(obj);
   });

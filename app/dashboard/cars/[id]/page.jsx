@@ -25,6 +25,7 @@ export default function Page({ params }) {
     rent_price: null,
     matricule: null,
     image: null,
+    status: null,
   };
   const formData = new FormData();
   const [updateData, setUpdateData] = useState(UpdateData);
@@ -99,6 +100,7 @@ export default function Page({ params }) {
 
   const validation = () => {
     const err = Validator.cardatavalidation(updateData, setEroor);
+    console.log(err);
     setEroor(err);
     if (err?.error !== false) {
       return null;
@@ -323,6 +325,25 @@ export default function Page({ params }) {
               {error?.rent_price}
             </p>
           ) : null}
+          <h1 className="uppercase p-3 text-gray-700 font-bold">status</h1>
+          <select
+            onChange={(e) => {
+              update(e);
+            }}
+            disabled={isDisabled}
+            name="status"
+            className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
+          >
+            <option
+              value={isDisabled ? `${updatedataA?.status}` : ""}
+              className="font-bold"
+            >
+              {isDisabled ? `${updatedataA?.status}` : ""}
+            </option>
+            <option value="RENTED">RENTED</option>
+            <option value="AVAILABLE">AVAILABLE</option>
+            <option value="UNAVAILABLE">UNAVAILABLE</option>
+          </select>
           {isDisabled === false ? (
             <div className="flex gap-6">
               <button
@@ -355,82 +376,6 @@ export default function Page({ params }) {
           )}
         </div>
       </div>
-      {/* <div className="bg-[#fff] mt-10 rounded-3xl ">
-        <div className="flex">
-          <div className=" w-full p-5">
-            <h1 className="uppercase p-3">Brand</h1>
-            <input
-              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
-              type="text"
-              placeholder="Brand"
-            />
-            <h1 className="uppercase p-3">Model</h1>
-            <input
-              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
-              type="text"
-              placeholder="Model"
-            />
-            <h1 className="uppercase p-3">Color</h1>
-            <input
-              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
-              type="text"
-              placeholder="Color"
-            />
-            <h1 className="uppercase p-3">Fuels</h1>
-            <input
-              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
-              type="text"
-              placeholder="Fuels"
-            />
-          </div>
-          <div className="w-full p-5">
-            <h1 className="uppercase p-3">Matricule</h1>
-            <input
-              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
-              type="text"
-              disabled="true"
-              placeholder="matricule"
-              value={"875564-A-62"}
-            />
-            <h1 className="uppercase p-3">Gear Box</h1>
-            <input
-              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
-              type="text"
-              placeholder="Gear Box"
-            />
-            <h1 className="uppercase p-3">Passenger Capacity</h1>
-            <input
-              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
-              type="text"
-              placeholder="Passenger Capacity"
-            />
-            <h1 className="uppercase p-3">Rent Price</h1>
-            <input
-              className="p-2 pl-6 rounded-full bg-[#F4F7FE] w-full"
-              type="text"
-              placeholder="Rent Price"
-            />
-          </div>
-        </div>
-        <div className="flex justify-between p-3">
-          <div className="flex w-fit">
-            <div className="font-[sans-serif] max-w-md mx-auto flex items-center">
-              <label className="font-bold text-black mb-2 block w-40 ">
-                Upload Image
-              </label>
-              <input
-                type="file"
-                className="w-full text-black text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-black rounded"
-              />
-            </div>
-          </div>
-          <div>
-            <button className="bg-[#000] text-[#fff] p-2 rounded-full w-40">
-              Update
-            </button>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 }
