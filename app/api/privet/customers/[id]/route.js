@@ -118,7 +118,6 @@ export async function PATCH(request, { params }) {
   try {
     const { id } = await params;
     let update_info = await request.json();
-    console.log(request.json());
 
     const validation = Validator.patchCustomers({ ...update_info, id });
     if (validation.error) {
