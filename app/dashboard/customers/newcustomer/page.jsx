@@ -7,7 +7,7 @@ import { toast, Toaster } from "sonner";
 async function sendData(url, { arg }) {
   return fetch(url, {
     method: "POST",
-    body: JSON.stringify(arg),
+    body: arg,
   });
 }
 const Page = ({ params }) => {
