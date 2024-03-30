@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import Menuitems from "@/components/Menuitems";
 import Link from "next/link";
 import { MdOutlineMenu } from "react-icons/md";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Header() {
-  const [change, setChange] = useState(false);
-
+  const { data: session } = useSession();
   return (
     <div className="flex gap-4 justify-between p-3 max-w-6xl mx-auto items-center">
       <Link className="uppercase" href="/">
@@ -22,7 +22,13 @@ export default function Header() {
       </nav>
       <div>
         <button className="bg-[#200d0d] text-white rounded-full w-20 hover:bg-[#454545] p-2 hidden sm:block ">
-          <a href="/login">Login</a>
+          {session ? (
+            <a onClick={() => signOut()} href="/">
+              Log Out
+            </a>
+          ) : (
+            <a href="/login">Admin</a>
+          )}
         </button>
       </div>
       <span className="cursor-pointer sm:hidden ">

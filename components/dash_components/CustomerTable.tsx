@@ -21,7 +21,7 @@ type RowObj = {
   phone: string;
   num_of_res: number;
   spending: string;
-  balcklist: boolean;
+  blacklist: boolean;
   id: string;
 };
 
@@ -96,8 +96,8 @@ function CustomersTable(props: { tableData: any; tabletitle: any }) {
         </p>
       ),
     }),
-    columnHelper.accessor("balcklist", {
-      id: "balcklist",
+    columnHelper.accessor("blacklist", {
+      id: "blacklist",
       header: () => (
         <p className="text-sm uppercase font-bold text-gray-600 dark:text-white ">
           Black list

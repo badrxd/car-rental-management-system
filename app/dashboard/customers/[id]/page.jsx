@@ -10,15 +10,17 @@ import ReservationsTable from "@/components/dash_components/ReservationsTable";
 import ReservationsTableData from "@/components/dash_components/variables/ReservationsTableData";
 import useSWR, { mutate } from "swr";
 import { toast, Toaster } from "sonner";
+import Loading from "@/components/dash_components/loading";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Page = ({ params }) => {
-  // this opejct will hold the new customer data
+  // This opejct will hold the new customer data
   const newData = {
     full_name: null,
     driver_id: null,
     phone: null,
+    blacklist: null,
   };
   ///////////////////////////////////////////////////////////////////////////////
   // useStates here
@@ -49,6 +51,7 @@ const Page = ({ params }) => {
   //   }
   ///////////////////////////////////////////////////////////////////////////////
   // this fetch will get the customer Data using SWR Hook
+  let sendeddata = {};
   const {
     data: firstData,
     error: updateError,
@@ -61,10 +64,14 @@ const Page = ({ params }) => {
     return <div>error</div>;
   }
   if (isLoading) {
-    return <div>loading jawad</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
-  const profiledata = firstData.customer;
-  console.log(profiledata.reservation);
+  console.log(firstData);
+  // console.log(profiledata.reservation);
   ///////////////////////////////////////////////////////////////////////////////
   // here i will handel the edit button click
   const btnClick = () => {
@@ -92,60 +99,53 @@ const Page = ({ params }) => {
         `${process.env.NEXT_PUBLIC_URL}/api/privet/customers/${params.id}`,
         {
           method: "PATCH",
-          body: updateData,
+          body: JSON.stringify(sendeddata),
         }
       );
       if (response.ok) {
         const newData = await response.json();
-        const updatedData = [newData?.b];
-        if (response.status !== 200) {
-        } else {
-          mutate(
-            `${process.env.NEXT_PUBLIC_URL}/api/privet/customers/${params.id}`,
-            updatedData[0],
-            false
-          );
-        }
+        const updatedData = [newData?.customer];
+        mutate(
+          `${process.env.NEXT_PUBLIC_URL}/api/privet/customers/${params.id}`,
+          updatedData[0],
+          true
+        );
         setIsDisabled(true);
         toast.success("Success", {
           description: "Profile Info Updated successfully",
         });
       } else {
         const newData = await response.json();
-        console.log(response);
         toast.error("Error", { description: `${newData.message}` });
-        console.error("Failed to Update The Profile:");
       }
     } catch (error) {
-      console.log("Error");
-      console.log(error);
-      console.error("Error Updating Profile:", error);
+      toast.error("Error", { description: `${error.message}` });
     } finally {
       setData(false);
     }
   };
 
-  // const validation = () => {
-  //   console.log("test error");
-  //   const err = Validator.profilevalidation(updateData, setEroor);
-  //   setEroor(err);
-  //   console.log(err);
-  //   if (err?.error !== false) {
-  //     return null;
-  //   }
-  //   let c = 0;
-  //   for (const key in updateData) {
-  //     const obj = updateData[key];
-  //     if (obj !== null && obj !== "") {
-  //       c += 1;
-  //       formData.append(key, obj);
-  //     }
-  //   }
-  //   if (c === 0) {
-  //     return null;
-  //   }
-  //   // updateProfileData();
-  // };
+  const validation = () => {
+    const err = Validator.profilevalidationpatch(updateData);
+    setEroor(err);
+    console.log(updateData.blacklist);
+    console.log(err);
+    if (err?.error !== false) {
+      return null;
+    }
+    let c = 0;
+    for (const key in updateData) {
+      const obj = updateData[key];
+      if (obj !== null && obj !== "") {
+        c += 1;
+        sendeddata[key] = updateData[key];
+      }
+    }
+    if (c === 0) {
+      return null;
+    }
+    updateProfileData();
+  };
   ///////////////////////////////////////////////////////////////////////////////
   return (
     <>
@@ -168,9 +168,13 @@ const Page = ({ params }) => {
                 </div> */}
             </div>
             <div className="w-full p-5 flex flex-col justify-center items-start">
-              <h1 className="text-3xl font-bold">{profiledata.full_name}</h1>
-              <h1 className="mt-3">Driver ID: {profiledata.driver_id}</h1>
-              <h1 className="mt-3">Phone: {profiledata.phone}</h1>
+              <h1 className="text-3xl font-bold uppercase">
+                {firstData?.customer?.full_name}
+              </h1>
+              <h1 className="mt-3">
+                Driver ID: {firstData?.customer?.driver_id}
+              </h1>
+              <h1 className="mt-3">Phone: {firstData?.customer?.phone}</h1>
               <h1 className="mt-3">Joind: 3 months ago</h1>
             </div>
           </div>
@@ -180,79 +184,104 @@ const Page = ({ params }) => {
                 <GrMoney className="text-2xl" />
                 SPENDING
               </span>
-              {profiledata.spending}
+              {firstData?.customer?.spending}
             </span>
             <span className="flex flex-col items-center p-5">
               <span className="flex gap-2 font-bold">
                 <IoBookmarksOutline className="text-2xl font-bold" />
                 N° Reservations
               </span>
-              {profiledata.num_of_res}
+              {firstData?.customer?.num_of_res}
             </span>
             <span className="flex flex-col items-center p-5">
               <span className="flex gap-2 font-bold">
                 <MdBlockFlipped className="text-2xl" />
                 BLACK LIST
               </span>
-              {profiledata.balcklist ? "YES" : "NO"}
+              {firstData?.customer?.blacklist ? "YES" : "NO"}
             </span>
           </div>
         </div>
-        <div className="w-full">
-          <h1 className="uppercase p-3 text-gray-700 font-bold">full name</h1>
-          <input
-            onChange={(e) => {
-              update(e);
-            }}
-            className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
-            type="text"
-            name="full_name"
-            placeholder="full name"
-            disabled={isDisabled}
-            value={isDisabled ? profiledata?.full_name : firstData.full_name}
-          />
-          {error?.full_name ? (
-            <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
-              {error?.full_name}
-            </p>
-          ) : null}
-          <h1 className="uppercase p-3 text-gray-700 font-bold">Driver ID</h1>
-          <input
-            onChange={(e) => {
-              update(e);
-            }}
-            className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
-            type="text"
-            name="driver_id"
-            placeholder="driver id"
-            disabled={isDisabled}
-            value={isDisabled ? profiledata?.driver_id : firstData.driver_id}
-          />
-          {error?.driver_id ? (
-            <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
-              {error?.driver_id}
-            </p>
-          ) : null}
-          <h1 className="uppercase p-3 text-gray-700 font-bold">
-            phone number
-          </h1>
-          <input
-            onChange={(e) => {
-              update(e);
-            }}
-            className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
-            type="number"
-            name="phone"
-            placeholder="phone number"
-            disabled={isDisabled}
-            value={isDisabled ? profiledata?.phone : firstData.phone}
-          />
-          {error?.phone ? (
-            <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
-              {error?.phone}
-            </p>
-          ) : null}
-        </div>
+        {/* /////////////////////////////////////////// */}
+        {isDisabled ? null : (
+          <div className="w-full">
+            <h1 className="uppercase p-3 text-gray-700 font-bold">full name</h1>
+            <input
+              onChange={(e) => {
+                update(e);
+              }}
+              className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
+              type="text"
+              name="full_name"
+              placeholder="full name"
+              disabled={isDisabled}
+            />
+            {error?.full_name ? (
+              <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
+                {error?.full_name}
+              </p>
+            ) : null}
+            <h1 className="uppercase p-3 text-gray-700 font-bold">Driver ID</h1>
+            <input
+              onChange={(e) => {
+                update(e);
+              }}
+              className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
+              type="text"
+              name="driver_id"
+              placeholder="driver id"
+              disabled={isDisabled}
+            />
+            {error?.driver_id ? (
+              <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
+                {error?.driver_id}
+              </p>
+            ) : null}
+            <h1 className="uppercase p-3 text-gray-700 font-bold">
+              phone number
+            </h1>
+            <input
+              onChange={(e) => {
+                update(e);
+              }}
+              className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
+              type="number"
+              name="phone"
+              placeholder="phone number"
+              disabled={isDisabled}
+            />
+            {error?.phone ? (
+              <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
+                {error?.phone}
+              </p>
+            ) : null}
+            <h1 className="uppercase p-3 text-gray-700 font-bold">balcklist</h1>
+            <select
+              onChange={(e) => {
+                const v = e.target.value;
+                let val = null;
+                if (v === "true") {
+                  val = true;
+                } else {
+                  val = false;
+                }
+                setUpdateData((prevData) => ({ ...prevData, blacklist: val }));
+              }}
+              name="blacklist"
+              className="p-2 pl-6 uppercase rounded-full bg-[#F4F7FE] w-full"
+            >
+              <option value=""></option>
+              <option value={true}>YES</option>
+              <option value={false}>NO</option>
+            </select>
+            {error?.blacklist ? (
+              <p className="bg-[#ff2727] text-[#fff] p-2 mt-2 rounded-full w-full">
+                {error?.blacklist}
+              </p>
+            ) : null}
+          </div>
+        )}
+        {/* /////////////////////////////////////////// */}
       </div>
       <div className="flex justify-end gap-2">
         {isDisabled ? (
@@ -264,11 +293,18 @@ const Page = ({ params }) => {
           </button>
         ) : (
           <>
-            <button className="bg-[#f92929] text-[#fff] p-2 mt-5 rounded-full w-40">
+            <button
+              onClick={() => {
+                setIsDisabled(true);
+              }}
+              className="bg-[#ff2727] text-[#fff] p-2 mt-5 rounded-full w-40"
+            >
               Cancle
             </button>
             <button
-              onClick={() => updateProfileData()}
+              onClick={(first) => {
+                validation();
+              }}
               className="bg-[#000000] text-[#fff] p-2 mt-5 rounded-full w-40"
             >
               Update
@@ -278,7 +314,7 @@ const Page = ({ params }) => {
       </div>
       <div className="mt-5 rounded-2xl">
         <ReservationsTable
-          tableData={ReservationsTableData(profiledata.reservation)}
+          tableData={ReservationsTableData(firstData?.customer?.reservation)}
         />
       </div>
     </>
