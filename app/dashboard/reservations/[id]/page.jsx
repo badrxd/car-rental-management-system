@@ -1,22 +1,24 @@
 "use client";
 import Image from "next/image";
-import React from "react";
-import useSWR from "swr";
+import React, { useState } from "react";
+import Loading from "@/components/dash_components/loading";
+import useSWR, { mutate } from "swr";
+import { toast, Toaster } from "sonner";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Page({ params }) {
-  // const data = await fetch(
-  //   `${process.env.NEXTAUTH_URL}/api/privet/reservations/${params.id}`
-  // );
-  // const result = await data.json();
-  // console.log(result);
+  const [ok, setOk] = useState(false);
   const { data, error, isLoading } = useSWR(
     `${process.env.NEXT_PUBLIC_URL}/api/privet/reservations/${params.id}`,
     fetcher
   );
   if (isLoading) {
-    return <div>Loading</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
   if (error) {
     return <div>error fetching data</div>;
@@ -29,10 +31,51 @@ export default function Page({ params }) {
   const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
   const rentedddays = Math.round(differenceInDays);
 
+  const handelCancel = async () => {
+    const arg = {
+      status: "CANCELLED",
+    };
+    try {
+      setOk(true);
+      const cancelfetch = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/privet/reservations/${params.id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(arg),
+        }
+      );
+      if (cancelfetch.ok) {
+        const newData = await cancelfetch.json();
+        const updatedStatus = newData.res;
+        toast.success("Success", {
+          description: "Reservation Cancelled successfully",
+        });
+        mutate(
+          `${process.env.NEXT_PUBLIC_URL}/api/privet/reservations/${params.id}`,
+          updatedStatus[1].status,
+          false
+        );
+      }
+    } catch (e) {
+      console.log(e);
+      toast.error("Error", {
+        description: "Can't Cancel !! try again",
+      });
+    } finally {
+      setOk(false);
+    }
+  };
   return (
     <div className="flex p-5 mt-5">
+      {ok === true ? (
+        <>
+          <Loading />
+          <div className="fixed bg-gray-400 opacity-50 h-full w-full top-0 left-0 bottom-0 right-0 z-40"></div>
+        </>
+      ) : null}
+      <Toaster richColors />
       <div className="w-full p-5 flex flex-col justify-between">
-        <div className="bg-[#fff] flex gap-2 p-4 rounded-2xl">
+        <div className="bg-[#fff] flex justify-between items-center gap-2 p-4 rounded-2xl">
           <Image
             src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${Car?.image}`}
             width={500}
@@ -47,6 +90,17 @@ export default function Page({ params }) {
             <h1 className="text-xl">Matricule: {Car.matricule}</h1>
             <h1 className="text-xl">Gear Box: {Car.gear_box}</h1>
             <h1 className="text-xl">Fuels: {Car.fuels}</h1>
+          </div>
+          <div className="flex flex-col justify-start items-start h-full">
+            {status === "CONFIRMED" ? (
+              <h1 className="bg-[#29a745] text-[#fff] p-2 rounded-full w-40 text-center ">
+                {status}
+              </h1>
+            ) : (
+              <h1 className="bg-[#DC3545] text-[#fff] p-2 rounded-full w-40 text-center ">
+                {status}
+              </h1>
+            )}
           </div>
         </div>
         <div className="bg-[#fff] flex justify-between gap-6 p-4 rounded-2xl">
@@ -70,7 +124,12 @@ export default function Page({ params }) {
             <h1 className="font-bold">Total Amount</h1>
             <h1>{amount} DH</h1>
             {status === "CONFIRMED" ? (
-              <button className="bg-[#000] text-[#fff] p-2 rounded-full w-40">
+              <button
+                onClick={() => {
+                  handelCancel();
+                }}
+                className="bg-[#000] text-[#fff] p-2 rounded-full w-40"
+              >
                 Cancel
               </button>
             ) : null}

@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
 import Validator from "@/lib/frontEnd/zodValidation";
 import useSWR, { mutate } from "swr";
 import { toast, Toaster } from "sonner";
@@ -29,7 +28,6 @@ export default function Page({ params }) {
   };
   const formData = new FormData();
   const [updateData, setUpdateData] = useState(UpdateData);
-  const { data: session, status } = useSession();
   const [error, setEroor] = useState(false);
   let [data, setData] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
