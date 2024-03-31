@@ -153,14 +153,7 @@ export async function PATCH(request, { params }) {
         { status: 400 }
       );
     }
-    if (reservation.status === "CANCELLED") {
-      return NextResponse.json(
-        {
-          message: "the reservation alredy was canceled",
-        },
-        { status: 400 }
-      );
-    }
+
     // car
     await prisma.car.update({
       where: { id: reservation.car_id },
