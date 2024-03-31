@@ -4,7 +4,13 @@ This repository contains the code for a car rental management system, which prov
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Home Page](https://raw.githubusercontent.com/badrxd/car-rental-management-system/main/public/images/Home%20Page.png)
+
+![Cars](https://raw.githubusercontent.com/badrxd/car-rental-management-system/main/public/images/Cars.png)
+
+![Swagger](https://raw.githubusercontent.com/badrxd/car-rental-management-system/main/public/images/Swagger.png)
+
+![Dashboard](https://raw.githubusercontent.com/badrxd/car-rental-management-system/main/public/images/Dashboard.png)
 
 ## Requirements
 
