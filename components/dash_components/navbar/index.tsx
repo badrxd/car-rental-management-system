@@ -115,13 +115,6 @@ const Navbar = (props: {
                 className="h-10 w-10 rounded-full"
               />
             ) : (
-              // <img
-              //   src={image}
-              //   alt={name}
-              //   width={2}
-              //   height={20}
-              //   className="h-10 w-10 rounded-full"
-              // />
               <IoPersonCircleOutline className="h-5 text-3xl w-5 text-gray-600" />
             )
           }
