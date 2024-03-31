@@ -82,7 +82,6 @@ const Page = ({ params }) => {
   // this function will update the data on the onChange event
   const update = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setUpdateData((prevData) => ({
       ...prevData,
       [name]: value,
