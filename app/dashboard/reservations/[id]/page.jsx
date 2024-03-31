@@ -2,14 +2,14 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Loading from "@/components/dash_components/loading";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import { toast, Toaster } from "sonner";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Page({ params }) {
   const [ok, setOk] = useState(false);
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     `${process.env.NEXT_PUBLIC_URL}/api/privet/reservations/${params.id}`,
     fetcher
   );
@@ -45,19 +45,12 @@ export default function Page({ params }) {
         }
       );
       if (cancelfetch.ok) {
-        const newData = await cancelfetch.json();
-        const updatedStatus = newData.res;
         toast.success("Success", {
           description: "Reservation Cancelled successfully",
         });
-        mutate(
-          `${process.env.NEXT_PUBLIC_URL}/api/privet/reservations/${params.id}`,
-          updatedStatus[1].status,
-          false
-        );
+        mutate();
       }
     } catch (e) {
-      console.log(e);
       toast.error("Error", {
         description: "Can't Cancel !! try again",
       });
