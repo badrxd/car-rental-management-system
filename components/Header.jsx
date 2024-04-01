@@ -54,7 +54,7 @@ export default function Header() {
               }
               classNames={"p-5 top-8 -left-[200px] w-max"}
             >
-              <div className="flex h-80 w-70 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
+              <div className="flex w-70 flex-col justify-start rounded-[20px] bg-white bg-cover bg-no-repeat shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:text-white dark:shadow-none">
                 <div className="m-4 mt-3">
                   <div className="flex items-center gap-2">
                     <p className="text-sm font-bold text-navy-700 dark:text-white">
@@ -64,22 +64,22 @@ export default function Header() {
                 </div>
                 <div className="mt-3 h-px w-full bg-gray-200 dark:bg-white/20 " />
 
-                <div className="ml-4 mt-12 flex flex-col justify-center items-center gap-5">
+                <div className="ml-4  p-5 flex flex-col justify-center items-center gap-5">
                   <p className="text-sm text-gray-800 dark:text-white hover:dark:text-white">
                     Email: {email}
                   </p>
-                  <button
-                    onClick={() => signOut({ callbackUrl: "/" })}
-                    className="bg-[#000] text-[#fff] p-2 rounded-full w-40"
-                  >
-                    Log Out
-                  </button>
                   <a
                     href="/dashboard"
                     className="bg-[#000] text-[#fff] p-2 rounded-full w-40"
                   >
                     Dashboard
                   </a>
+                  <button
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                    className="bg-[#000] text-[#fff] p-2 rounded-full w-40"
+                  >
+                    Log Out
+                  </button>
                 </div>
               </div>
             </Dropdown>
